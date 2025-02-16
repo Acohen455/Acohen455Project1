@@ -22,26 +22,19 @@ public class AuthService {
     }
 
 
-    //function for registering the user
+    //encoding and passing stuff to the DAO happens here
     public User registerUser(User user) {
-        //use the spring password encoder to hash the password
+        // pass password encoding responsibilities to the service layer
+        // use the spring password encoder to hash the password
         //we can match a provided password using the PasswordEncoder.matches() method
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        //save the user to the database then return the saved object
         return userDAO.save(user);
     }
 
-    //user login method
-    public boolean userLogin(String username, String password) {
-        //check if the user exists
-        //we're able to use orElse because findBy uses an optional
-        User user = userDAO.findByUsername(username).orElse(null);
-        //if the user doesnt exist, return false
-        if (user == null) {
-            return false;
-        }
-        //return true or false depending on whether password matches
+    //simple one liner function for matching password hashes
+    public boolean checkPassword(User user, String password) {
         return passwordEncoder.matches(password, user.getPassword());
     }
+
 
 }
