@@ -1,5 +1,8 @@
 //setting up our security configuration
 
+
+//deleting this in favor of no security for now
+
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
