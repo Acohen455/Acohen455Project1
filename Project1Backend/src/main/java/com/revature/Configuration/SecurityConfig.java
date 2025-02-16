@@ -5,5 +5,7 @@
 //If we were working on a DOD pap or something there's always argon2 or SCrypt, but not necessary here
 @Bean
 public PasswordEncoder passwordEncoder() {
+
     return new BCryptPasswordEncoder();
 }
+

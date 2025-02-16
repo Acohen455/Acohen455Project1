@@ -1,5 +1,8 @@
 package com.revature.models;
 
+import org.springframework.security.core.userdetails.UserDetails;
+import javax.persistence.*;
+
 //we make this the entity, as this will represent our db data model
 //this ONLY represents the model
 //the DAO will handle any CRUD operations and logic
@@ -7,7 +10,7 @@ package com.revature.models;
 @Component
 @Entity
 @Table(name = "users")
-public class User{
+public class User implements UserDetails{
 
     @Id //indicates to sprint boot that this is the primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) //this makes the primary key increment

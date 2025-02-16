@@ -37,4 +37,11 @@ public class AuthService {
     }
 
 
+    //method for creating authentication token with JWT
+    public String generateToken()
+
+    //According to deepthink, claims are what we should use here -- claims are key-value pairs representing info about the user
+    //we'll store user roles this way
+
+
 }
