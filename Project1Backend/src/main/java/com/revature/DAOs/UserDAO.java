@@ -13,4 +13,8 @@ import org.springframework.stereotype.Repository;
 @Repository //1 of the 4 stereotype annotations (make a class a bean)
 public interface UserDAO extends JpaRepository<User, Integer> {
 
+    //attempting to implement spring security user auth
+    Optional<User> findByUsername(String username);
+
+    Optional<User> findByUserId(Integer userId);
 }

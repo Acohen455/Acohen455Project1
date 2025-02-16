@@ -22,7 +22,7 @@ public class User{
     @Column(name = "username")
     private String username;
 
-    @Column(name = "password")
+    @Column(name = "password", columnDefinition = "TEXT")
     private String password;
 
     @Column(name = "role")
