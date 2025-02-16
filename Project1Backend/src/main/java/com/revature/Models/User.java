@@ -31,6 +31,12 @@ public class User implements UserDetails{
     @Column(name = "role")
     private String role;
 
+    //column for checking if a user can login
+    //this is hardcoded to always be true
+    //can be changed to enable/disable users
+    @Column(name = "enabled", nullable = false)
+    private boolean enabled = true;
+
 
 
 
