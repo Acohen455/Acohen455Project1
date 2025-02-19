@@ -15,18 +15,21 @@ public class Reimbursement {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "amount", columnDefinition = "DECIMAL(10,2)")
+    @Column(name = "amount", columnDefinition = "DECIMAL(10,2)", nullable = false)
     private double amount;
 
     //making the status boolean -- false = pending, true = approved
     //going to rename this column to pending
     //this used to be the status column
     //since I want to use booleans here, pending is a better naming scheme
-    @Column(name = "pending", columnDefinition = "boolean")
+    @Column(name = "pending", columnDefinition = "boolean", nullable = false)
     private boolean pending;
 
+    @Column(name = "approved", columnDefinition = "boolean", nullable = true)
+    private boolean approved;
+
     @ManyToOne
-    @JoinColumn(name = "userId", referencedColumnName = "userId")
+    @JoinColumn(name = "userId", referencedColumnName = "userId", nullable = false)
     private int userId;
 
 
