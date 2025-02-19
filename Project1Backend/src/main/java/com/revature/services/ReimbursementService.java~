@@ -28,8 +28,6 @@ public class ReimbursementService {
         return reimbursementDAO.findByStatusAndUserId(status, userId);
     }
 
-    public Reimbursement
-
 
     //TODO: Implement methods to search reimbursements by amount
 }
