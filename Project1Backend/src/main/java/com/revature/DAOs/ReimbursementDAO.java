@@ -11,4 +11,8 @@ public interface ReimbursementDAO extends JpaRepository<Reimbursement, Integer> 
     Optional<Reimbursement> findByReimbursementId(Integer reimbursementId);
 
     Optional<List<Reimbursement>> findAllByUserId(Integer userId);
+
+    Optional<List<Reimbursement>> findByStatusAndUserId(boolean status, Integer userId);
+
+
 }

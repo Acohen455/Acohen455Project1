@@ -24,6 +24,10 @@ public class ReimbursementService {
         return reimbursementDAO.findByReimbursementId(reimbursementId);
     }
 
+    public List<Reimbursement> findByStatusAndUserId(boolean status, Integer userId) {
+        return reimbursementDAO.findByStatusAndUserId(status, userId);
+    }
+
 
     //TODO: Implement methods to search reimbursements by amount
 }

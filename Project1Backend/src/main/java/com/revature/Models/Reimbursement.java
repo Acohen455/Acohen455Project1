@@ -18,8 +18,12 @@ public class Reimbursement {
     @Column(name = "amount", columnDefinition = "DECIMAL(10,2)")
     private double amount;
 
-    @Column(name = "status")
-    private String status;
+    //making the status boolean -- false = pending, true = approved
+    //going to rename this column to pending
+    //this used to be the status column
+    //since I want to use booleans here, pending is a better naming scheme
+    @Column(name = "pending", columnDefinition = "boolean")
+    private boolean pending;
 
     @ManyToOne
     @JoinColumn(name = "userId", referencedColumnName = "userId")
