@@ -1,47 +1,77 @@
 package com.revature.services;
 
 import com.revature.models.User;
-import com.revature.repositories.UserDAO;
+import com.revature.DTOs.UserDTO;
+import com.revature.DAOs.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import com.revature.DTOs.LoginDTO;
+
+import java.util.Optional;
 
 @Service
 public class AuthService {
 
     private final UserDAO userDAO;
+    private final User user;
 
-    private final PasswordEncoder passwordEncoder;
+    //TODO: add password encoders possibly
+    //private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public AuthService(UserDAO userDAO, PasswordEncoder passwordEncoder) {
+    public AuthService(UserDAO userDAO, User user) {
         this.userDAO = userDAO; //let spring create the DAO
-        this.passwordEncoder = passwordEncoder; //let spring create the password encoder
+        this.user = user;
     }
 
 
-    //encoding and passing stuff to the DAO happens here
-    public User registerUser(User user) {
-        // pass password encoding responsibilities to the service layer
-        // use the spring password encoder to hash the password
-        //we can match a provided password using the PasswordEncoder.matches() method
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        return userDAO.save(user);
+
+    public Optional<User> findByUsername(String username) {
+        return userDAO.findByUsername(username);
     }
 
-    //simple one liner function for matching password hashes
-    public boolean checkPassword(User user, String password) {
-        return passwordEncoder.matches(password, user.getPassword());
+    public UserDTO registerUser(User user) {
+
+        //save the user -- pops back the saved object
+        User returnedUser = userDAO.save(user);
+
+        //turn this into the DTO to get rid of password
+        //order of args is id, user, role
+        UserDTO outgoingUser = new UserDTO(
+                returnedUser.getUserId(),
+                returnedUser.getUsername(),
+                returnedUser.getRole()
+        );
+
+
+        return outgoingUser;
     }
 
+    public UserDTO login(LoginDTO userLogin){
 
-    //method for creating authentication token with JWT
-    public String generateToken()
+        //do some input validation
+        //username validation here
+        if (userLogin.getUsername() == null || userLogin.getUsername().isBlank()){
+            throw new IllegalArgumentException("Dude, come on! You can't login with no username!");
+        }
 
-    //According to deepthink, claims are what we should use here -- claims are key-value pairs representing info about the user
-    //we'll store user roles this way
+        //input validation for pass now
+        if (userLogin.getPassword() == null || userLogin.getPassword().isBlank()){
+            throw new IllegalArgumentException("Dude, come on! You can't login with no password!");
+        }
+
+        //just for fun, lets make sure the characters are roman alphabet
+
+
+
+
+
+    }
+
+    
+
+
 
 
 }

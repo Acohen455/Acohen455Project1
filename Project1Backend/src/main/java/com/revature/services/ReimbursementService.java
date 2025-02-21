@@ -1,6 +1,14 @@
 package com.revature.services;
 
 
+import com.revature.DAOs.ReimbursementDAO;
+import com.revature.models.Reimbursement;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class ReimbursementService {
 
@@ -9,24 +17,22 @@ public class ReimbursementService {
 
     @Autowired
     public ReimbursementService(ReimbursementDAO reimbursementDAO) {
-
         this.reimbursementDAO = reimbursementDAO;
     }
 
 
     //we want to find the reimbursement by id or user id
     //coding by userid first
-    public List<Reimbursement> findByUserId(Integer userId) {
-
+    public Optional<List<Reimbursement>> findByUserId(Integer userId) {
         return reimbursementDAO.findAllByUserId(userId);
     }
 
     //grabs a single reimbursement by ID
-    public Reimbursement findByReimbursementId(Integer reimbursementId) {
+    public Optional<Reimbursement> findByReimbursementId(Integer reimbursementId) {
         return reimbursementDAO.findByReimbursementId(reimbursementId);
     }
 
-    public List<Reimbursement> findByStatusAndUserId(boolean status, Integer userId) {
+    public Optional<List<Reimbursement>> findByStatusAndUserId(boolean status, Integer userId) {
         return reimbursementDAO.findByStatusAndUserId(status, userId);
     }
 
@@ -34,7 +40,7 @@ public class ReimbursementService {
     public Reimbursement createReimbursement(Reimbursement reimbursement) {
         Reimbursement toSave = new Reimbursement();
 
-        if (!toSave.getDescription == null){
+        if (!(toSave.getDescription() == null)){
             toSave.setDescription(reimbursement.getDescription());
         }
 
@@ -42,13 +48,11 @@ public class ReimbursementService {
         //easier to do it this way, we can just pop an alert or something if invalid
         toSave.setAmount(reimbursement.getAmount());
         toSave.setPending(reimbursement.isPending());
-        toSave.setUserId(reimbursement.getUserId());
+        toSave.setUser(reimbursement.getUser());
 
 
         return reimbursementDAO.save(reimbursement);
     }
-
-    public void
 
 
     //TODO: Implement methods to search reimbursements by amount

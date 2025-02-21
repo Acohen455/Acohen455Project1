@@ -1,6 +1,9 @@
 package com.revature.models;
 
 
+import jakarta.persistence.*;
+import org.springframework.stereotype.Component;
+import com.revature.models.User;
 
 @Component
 @Entity
@@ -28,21 +31,22 @@ public class Reimbursement {
     @Column(name = "approved", columnDefinition = "boolean", nullable = true)
     private boolean approved;
 
-    @ManyToOne
+    //TODO:
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "userId", referencedColumnName = "userId", nullable = false)
-    private int userId;
+    private User user;
 
 
     //constructors
     public Reimbursement() {
     }
 
-    public Reimbursement(int reimbursementId, String description, double amount, boolean pending, int userId) {
+    public Reimbursement(int reimbursementId, String description, double amount, boolean pending, User user) {
         this.reimbursementId = reimbursementId;
         this.description = description;
         this.amount = amount;
         this.pending = pending;
-        this.userId = userId;
+        this.user = user;
     }
 
 
@@ -79,18 +83,17 @@ public class Reimbursement {
         this.pending = pending;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     //toString
     //TODO: Customize this later
-
-
     @java.lang.Override
     public java.lang.String toString() {
         return "Reimbursement{" +
@@ -98,7 +101,7 @@ public class Reimbursement {
                 ", description='" + description + '\'' +
                 ", amount=" + amount +
                 ", pending=" + pending +
-                ", userId=" + userId +
+                ", user=" + user.toString() +
                 '}';
     }
 }

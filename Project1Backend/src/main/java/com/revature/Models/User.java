@@ -1,7 +1,8 @@
 package com.revature.models;
 
-import org.springframework.security.core.userdetails.UserDetails;
-import javax.persistence.*;
+import org.springframework.stereotype.Component;
+
+import jakarta.persistence.*;
 
 //we make this the entity, as this will represent our db data model
 //this ONLY represents the model
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @Component
 @Entity
 @Table(name = "users")
-public class User implements UserDetails{
+public class User{
 
     @Id //indicates to sprint boot that this is the primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) //this makes the primary key increment

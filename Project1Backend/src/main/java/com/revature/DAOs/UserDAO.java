@@ -4,6 +4,8 @@ import com.revature.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 //Extending JpaRepository gives us access to a bunch of basic CRUD methods. We don't have to write them!
 //This includes find all, find by id, insert, update, delete
 

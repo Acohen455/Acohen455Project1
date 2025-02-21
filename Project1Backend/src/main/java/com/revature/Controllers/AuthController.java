@@ -20,13 +20,14 @@ public class AuthController {
     //injecting the authservice
     @Autowired
     public AuthController(AuthService authService) {
+
         this.authService = authService;
     }
 
     //function for registering the user
     //make sure we map this to a post request
     @PostMapping("/register")
-    public ReponseEntity<User> registerUser(@RequestBody User user) {
+    public ResponseEntity<User> registerUser(@RequestBody User user) {
         // pass password encoding responsibilities to the service layer
         User registeredUser = authService.registerUser(user);
 
@@ -36,6 +37,7 @@ public class AuthController {
 
     //user login method
     //same as with registration, anything that involves the DAO etc. goes to service layer
+    @PostMapping("/login")
     public ResponseEntity<User> userLogin(String username, String password) {
         //check if the user exists
         //we're able to use orElse because findBy uses an optional
