@@ -18,8 +18,4 @@ public class ReimbursementBackendApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ReimbursementBackendApplication.class, args);
 	}
-	//this bootstraps the application -- we pass into .run the primary source class (ie. the root) and the command line arguments
-	//the primary source class is generally the class with @SpringBootApplication, in most cases the main class and the one run is called in
-	//convention is for both run and the application tag to be in the same class
-	//	SpringApplication.run(ReimbursementBackendApplication.class, args);
 }

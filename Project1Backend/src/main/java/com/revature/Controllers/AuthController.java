@@ -55,11 +55,13 @@ public class AuthController {
 
         UserDTO loggedInUser = authService.login(incomingUser);
 
-
+        session.setAttribute("userId", loggedInUser.getUserId());
+        session.setAttribute("username", loggedInUser.getUsername());
+        session.setAttribute("role", loggedInUser.getRole());
 
         //return the user if the info is valid
         //I prefer to explicitly type the return
         //implicit types make me feel yicky
-        return new ResponseEntity<UserDTO>(outgoingUser, HttpStatus.OK);
+        return new ResponseEntity<UserDTO>(loggedInUser, HttpStatus.OK);
     }
 }

@@ -2,6 +2,7 @@ package com.revature.services;
 
 import com.revature.DAOs.UserDAO;
 import com.revature.DTOs.UserDTO;
+import com.revature.aspects.AdminOnly;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.revature.models.User;
@@ -24,6 +25,7 @@ public class UserService {
 
     //get all users from DB
     //we'll control access to this in the controller
+    @AdminOnly
     public List<UserDTO> getAllUsers(){
         //JPArepository method for grabbing users
         List<User> allUsers = userDAO.findAll();

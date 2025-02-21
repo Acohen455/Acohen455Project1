@@ -19,9 +19,9 @@ public class UserDTO {
 
     //struct with user param
     public UserDTO(User user) {
-        this.userId = userId;
-        this.username = username;
-        this.role = role;
+        this.userId = user.getUserId();
+        this.username = user.getUsername();
+        this.role = user.getRole();
     }
 
     //struct with individual fields
