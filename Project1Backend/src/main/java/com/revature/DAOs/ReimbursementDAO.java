@@ -4,6 +4,7 @@ import com.revature.models.Reimbursement;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+
 import java.util.List;
 import java.util.Optional;
 
@@ -13,9 +14,9 @@ public interface ReimbursementDAO extends JpaRepository<Reimbursement, Integer> 
     //write method stubs for this and spring does the rest
     Optional<Reimbursement> findByReimbursementId(Integer reimbursementId);
 
-    Optional<List<Reimbursement>> findAllByUserId(Integer userId);
+    Optional<List<Reimbursement>> findAllByUserUserId(int userId);
 
-    Optional<List<Reimbursement>> findByStatusAndUserId(boolean status, Integer userId);
+    Optional<List<Reimbursement>> findByPendingAndUserUserId(boolean status, Integer userId);
 
 
 }

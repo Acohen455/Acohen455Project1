@@ -24,7 +24,7 @@ public class ReimbursementService {
     //we want to find the reimbursement by id or user id
     //coding by userid first
     public Optional<List<Reimbursement>> findByUserId(Integer userId) {
-        return reimbursementDAO.findAllByUserId(userId);
+        return reimbursementDAO.findAllByUserUserId(userId);
     }
 
     //grabs a single reimbursement by ID
@@ -33,7 +33,7 @@ public class ReimbursementService {
     }
 
     public Optional<List<Reimbursement>> findByStatusAndUserId(boolean status, Integer userId) {
-        return reimbursementDAO.findByStatusAndUserId(status, userId);
+        return reimbursementDAO.findByPendingAndUserUserId(status, userId);
     }
 
     //function to create a reimbursement
@@ -53,6 +53,8 @@ public class ReimbursementService {
 
         return reimbursementDAO.save(reimbursement);
     }
+
+
 
 
     //TODO: Implement methods to search reimbursements by amount

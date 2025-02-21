@@ -1,7 +1,11 @@
 package com.revature.Controllers;
 
+import com.revature.DTOs.LoginDTO;
+import com.revature.DTOs.RegisterDTO;
+import com.revature.DTOs.UserDTO;
 import com.revature.models.User;
 import com.revature.services.AuthService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,9 +31,18 @@ public class AuthController {
     //function for registering the user
     //make sure we map this to a post request
     @PostMapping("/register")
-    public ResponseEntity<User> registerUser(@RequestBody User user) {
+    public ResponseEntity<UserDTO> registerUser(@RequestBody User user) {
+        //turn the user into a DTO
+        RegisterDTO newUser = new RegisterDTO(
+                user.getUsername(),
+                user.getPassword(),
+                user.getRole()
+        );
+
+
+
         // pass password encoding responsibilities to the service layer
-        User registeredUser = authService.registerUser(user);
+        UserDTO registeredUser = authService.registerUser(newUser);
 
         //use a response entity to not only return the registered user but also a status code
         return new ResponseEntity<>(registeredUser, HttpStatus.CREATED);
@@ -38,17 +51,15 @@ public class AuthController {
     //user login method
     //same as with registration, anything that involves the DAO etc. goes to service layer
     @PostMapping("/login")
-    public ResponseEntity<User> userLogin(String username, String password) {
-        //check if the user exists
-        //we're able to use orElse because findBy uses an optional
-        User user = authService.findByUsername(username).orElse(null);
-        //if the user doesnt exist or info is incorrect, return a null user
-        if (user == null || authService.checkPassword(user, password) == false) {
-            return new ResponseEntity<User>(null, HttpStatus.UNAUTHORIZED);
-        }
+    public ResponseEntity<UserDTO> userLogin(@RequestBody LoginDTO incomingUser, HttpSession session) {
+
+        UserDTO loggedInUser = authService.login(incomingUser);
+
+
+
         //return the user if the info is valid
         //I prefer to explicitly type the return
         //implicit types make me feel yicky
-        return new ResponseEntity<User>(user, HttpStatus.OK);
+        return new ResponseEntity<UserDTO>(outgoingUser, HttpStatus.OK);
     }
 }
