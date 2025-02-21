@@ -54,6 +54,15 @@ public class ReimbursementService {
         return reimbursementDAO.save(reimbursement);
     }
 
+    //get reimbursements by status
+    public Optional<List<Reimbursement>> findByStatus(boolean status) {
+        return reimbursementDAO.findByPending(status);
+    }
+
+    public Optional<List<Reimbursement>> findByApproved(boolean status) {
+        return reimbursementDAO.findByApproved(status);
+    }
+
 
 
 

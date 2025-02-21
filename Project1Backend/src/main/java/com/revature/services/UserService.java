@@ -9,6 +9,7 @@ import com.revature.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 //this service handles stuff to do with the users
 @Service //Beanify me!
@@ -42,6 +43,58 @@ public class UserService {
         //return the dtos
         return outgoingUsers;
     }
+
+    @AdminOnly
+    public List<UserDTO> getUsersByLastName(String lastName) {
+        Optional<List<User>> optionalUserList = userDAO.findUsersByLastName(lastName);
+
+        List userList = new ArrayList<UserDTO>();
+
+
+        if (optionalUserList.isEmpty()){
+            return userList;
+        } else {
+            userList.addAll(optionalUserList.get());
+        }
+
+        return userList;
+    }
+
+    @AdminOnly
+    public List<UserDTO> getUsersByFirstName(String firstName) {
+        Optional<List<User>> optionalUserList = userDAO.findUsersByFirstName(firstName);
+
+        List userList = new ArrayList<UserDTO>();
+
+
+        if (optionalUserList.isEmpty()){
+            return userList;
+        } else {
+            userList.addAll(optionalUserList.get());
+        }
+
+        return userList;
+    }
+
+
+    //TODO: Make sure roles are stored in uppercase
+    @AdminOnly
+    public List<UserDTO> getUsersByRole(String role) {
+        role = role.toUpperCase();
+        Optional<List<User>> optionalUserList = userDAO.findUsersByRole(role);
+
+        List userList = new ArrayList<UserDTO>();
+
+
+        if (optionalUserList.isEmpty()){
+            return userList;
+        } else {
+            userList.addAll(optionalUserList.get());
+        }
+
+        return userList;
+    }
+
 
 
 

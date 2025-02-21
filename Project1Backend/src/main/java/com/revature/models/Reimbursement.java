@@ -3,7 +3,6 @@ package com.revature.models;
 
 import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
-import com.revature.models.User;
 
 @Component
 @Entity

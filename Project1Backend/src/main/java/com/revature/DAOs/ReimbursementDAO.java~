@@ -20,6 +20,5 @@ public interface ReimbursementDAO extends JpaRepository<Reimbursement, Integer> 
 
     Optional<List<Reimbursement>> findByPending(boolean status);
 
-    Optional<List<Reimbursement>> findByApproved(boolean status);
 
 }
