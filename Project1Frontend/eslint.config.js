@@ -29,7 +29,7 @@ export default [
       ...importPlugin.configs.recommended.rules,
       "react/react-in-jsx-scope": "off", // Ensure this rule is disabled
       "import/prefer-default-export": "warn",
-      "@typescript-eslint/ban-ts-comment": "warn",
+      "@typescript-eslint/ban-ts-comment": "off",
       "react/display-name": "off",
       "@typescript-eslint/no-empty-interface": "warn",
     },
@@ -42,7 +42,8 @@ export default [
     rules: {
       ...pluginReact.configs.flat.recommended.rules,
       "react/react-in-jsx-scope": "off",
-      'react/display-name': 'off',// Explicitly disable the rule
+      'react/display-name': 'off',
+      '@typescript-eslint/ban-ts-comment': 'off',// Explicitly disable the rule
     },
   },
 ];
