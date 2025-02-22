@@ -1,7 +1,7 @@
 
 
 
-export default function Index(props: {disableCustomTheme?: boolean}) {
+export default function Index() {
     return (
         <div>
             <h1>Home</h1>

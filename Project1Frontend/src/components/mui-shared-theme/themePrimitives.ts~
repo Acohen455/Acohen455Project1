@@ -394,6 +394,7 @@ export const shape = {
   borderRadius: 8,
 };
 
+// - `data-screenshot` is a custom attribute for testing purposes and is not part of the MUI SelectDisplayProps type.
 // @ts-ignore
 const defaultShadows: Shadows = [
   'none',

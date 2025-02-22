@@ -41,8 +41,7 @@ export default [
     ...pluginReact.configs.flat.recommended,
     rules: {
       ...pluginReact.configs.flat.recommended.rules,
-      "react/react-in-jsx-scope": "off",
-      'react/display-name': 'off',// Explicitly disable the rule
+      "react/react-in-jsx-scope": "off", // Explicitly disable the rule
     },
   },
 ];

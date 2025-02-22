@@ -15,15 +15,6 @@
     "noEmit": true,
     "jsx": "react-jsx",
 
-    /* Paths and baseUrl for module resolution */
-    "baseUrl": ".",
-    "paths": {
-      "@components/*": ["./src/components/*"],
-      "@pages/*": ["./src/pages/*"],
-      "@utils/*": ["./src/utils/*"],
-      "@styles/*": ["./src/styles/*"]
-    },
-
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,

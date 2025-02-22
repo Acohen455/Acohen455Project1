@@ -1,5 +1,6 @@
 import {createBrowserRouter} from "react-router-dom";
 
+// @ts-ignore
 import Index from './pages/Index';  // Correct path to Index component
 import SignIn from './pages/SignIn';  // Correct path to SignIn component
 
