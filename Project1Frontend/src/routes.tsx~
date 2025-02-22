@@ -3,7 +3,7 @@ import {createBrowserRouter} from "react-router-dom";
 import {Login} from "./pages/Login.tsx";
 import {Register} from "./pages/Register.tsx";
 import {NameInput} from "./pages/NameInput.tsx";
-import {AdminViewUserTable} from "./pages/AdminViewUserTable.tsx";
+import {AdminView} from "./pages/AdminView.tsx";
 import {Layout} from "./components/Layout.tsx";
 
 
@@ -16,7 +16,7 @@ export const router = createBrowserRouter([
             {path: "/login", element: <Login></Login>},
             {path: "/register", element: <Register />},
             {path: "/nameinput", element: <NameInput />},
-            {path: "/admin/users", element: <AdminViewUserTable />},
+            {path: "/admin/users", element: <AdminView />},
         ]
     }
 
