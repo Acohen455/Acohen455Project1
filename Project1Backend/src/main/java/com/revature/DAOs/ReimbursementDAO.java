@@ -22,4 +22,9 @@ public interface ReimbursementDAO extends JpaRepository<Reimbursement, Integer> 
 
     Optional<List<Reimbursement>> findByApproved(boolean status);
 
+    Optional<Reimbursement> updateReimbursementDescriptionByReimbursementId(String description, Integer reimbursementId);
+
+    Optional<Reimbursement> setReimbursementStatusAndReimbursementApprovedByReimbursementId(boolean status, boolean approved, Integer reimbursementId);
+
+
 }

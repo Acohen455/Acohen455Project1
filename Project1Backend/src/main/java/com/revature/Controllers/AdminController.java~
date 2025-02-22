@@ -76,11 +76,5 @@ public class AdminController {
         return ResponseEntity.ok(userReimbList);
     }
 
-    @GetMapping("/reimbursements")
-    @AdminOnly
-    public ResponseEntity<List<Reimbursement>> getAllReimbursements(){
-        return ResponseEntity.ok(reimbursementService.getAllReimbursements());
-    }
-
 
 }

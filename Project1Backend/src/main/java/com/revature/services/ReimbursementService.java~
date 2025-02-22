@@ -74,11 +74,6 @@ public class ReimbursementService {
         return reimbursementDAO.findAll();
     }
 
-    //TODO: Implement on the frontend as a drop down with a nested dropdown
-    public Optional<Reimbursement> updateReimbursementStatusAndApproval(Integer reimbursementId, boolean status, boolean approved) {
-
-    }
-
 
     //sort an existing list of reimbursements by status
     //returns the list of reimbu
