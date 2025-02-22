@@ -1,10 +1,7 @@
 package com.revature.DAOs;
 
 import com.revature.models.User;
-import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -33,9 +30,6 @@ public interface UserDAO extends JpaRepository<User, Integer> {
     Optional<List<User>> findUsersByRole(String role);
 
     //this has to be done manually, as spring can only autowire retrievals
-    @Modifying
-    @Transactional
-    @Query("UPDATE User u SET u.role")
     void updateUserRoleByUserId(Integer userId, String role);
 
 }

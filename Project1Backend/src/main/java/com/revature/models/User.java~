@@ -54,16 +54,6 @@ public class User{
     public User() {
     }
 
-
-    //partial constructor
-
-    public User(int userId, String username, String role) {
-        this.userId = userId;
-        this.username = username;
-        this.role = role;
-    }
-
-
     //overloaded constructor
 
     public User(int userId, String firstName, String lastName, String username, String password, String role) {

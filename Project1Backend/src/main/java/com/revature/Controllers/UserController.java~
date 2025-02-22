@@ -54,8 +54,8 @@ public class UserController {
                                                              @RequestBody Reimbursement reimbursement) {
 
         reimbursement.setUser(new User((Integer)session.getAttribute("userId"),
-                                            (String)session.getAttribute("username"),
-                                            (String)session.getAttribute("role")));
+                        (String)session.getAttribute("username"),
+                        (String)session.getAttribute("role")));
 
         //call the service layer to create the reimbursement
         Reimbursement createdReimb = reimbursementService.createReimbursement(reimbursement);

@@ -96,17 +96,27 @@ public class UserService {
         return userList;
     }
 
+    //dont need to return anything in the service layer
     @AdminOnly
-    public ResponseEntity deleteUserById(int userId) {
+    public void deleteUserById(int userId) {
         userDAO.deleteById(userId);
-
-        //best practice is to return no content after a successful deletion
-        return ResponseEntity.noContent().build();
     }
 
     @AdminOnly
     public ResponseEntity updateUserRoleById(int userId, String role) {
-        userDAO.updateUserRoleByUserId(userId, role);
+
+        //check if a valid role is entered
+        if (role.equalsIgnoreCase("admin") || role.equalsIgnoreCase("user")) {
+            role.toUpperCase();
+        } else {
+            throw new IllegalArgumentException("Role must be admin or user");
+        }
+
+        //if role is valid, update the user
+        userDAO.updateUserRole(userId, role);
+
+        //if successful, return ok
+        return ResponseEntity.ok().build();
     }
 
 

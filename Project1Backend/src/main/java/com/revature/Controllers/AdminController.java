@@ -82,8 +82,27 @@ public class AdminController {
     //best practice is to use a path variable here instead of a passed parameter
     @DeleteMapping("/deleteuser/{userId}")
     @AdminOnly
-    public ResponseEntity<UserDTO> deleteUser(@PathVariable int userId){
-        return ResponseEntity.ok(userService.deleteUser(userId));
+    public ResponseEntity deleteUser(@PathVariable int userId){
+        userService.deleteUserById(userId);
+        //this is best practice for deletion
+        return ResponseEntity.noContent().build();
+    }
+
+    //best practice is to pass the role as a request body
+    //best practice is to pass the user id as a path variable
+    @PatchMapping("/updateuserrole/{userId}")
+    @AdminOnly
+    public ResponseEntity updateUserRole(@PathVariable int userId, @RequestBody String role){
+        return ResponseEntity.ok(userService.updateUserRoleById(userId, role));
+    }
+
+    //function for updating reimbursement status
+    @PatchMapping("/updatereimbursement/{reimbursementId}")
+    @AdminOnly
+    public ResponseEntity updateReimbursement(@PathVariable int reimbursementId,
+                                              @RequestParam boolean pendingStatus,
+                                              @RequestParam boolean approved){
+        return ResponseEntity.ok(reimbursementService.updateReimbursementStatusAndApproval(reimbursementId, pendingStatus, approved));
     }
 
 
