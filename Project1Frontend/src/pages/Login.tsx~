@@ -25,7 +25,7 @@ export const Login:React.FC = () => {
                 {/* here we're indicating a border of thickness 1 and color grey */}
                 <input type="email" id="emailInput" className="form-control border border-1 border-grey" style={{fontSize:".95rem"}}/>
                 {/* TODO: get label to float to the right spot */}
-                <label className="form-label form-control-sm" htmlFor="emailInput" style={{}} >Email address</label>
+                <label className="form-label form-label-sm" htmlFor="emailInput" style={{}} >Email address</label>
             </div>
 
             {/*<!-- Password input -->*/}
