@@ -4,12 +4,12 @@ export const AdminViewReimbTable:React.FC = () => {
             <table className="table table-striped table-hover w-100">
                 <thead>
                 <tr>
-                    <th scope="col">UserId</th>
-                    <th scope="col">First Name</th>
-                    <th scope="col">Last Name</th>
-                    <th scope="col">Username</th>
-                    <th scope={"col"}>Role</th>
-                    <th scope={"col"}></th>
+                    <th scope="col">Reimbursement ID</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Pending</th>
+                    <th scope={"col"}>Approved</th>
+                    <th scope={"col"}>User ID</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -27,7 +27,7 @@ export const AdminViewReimbTable:React.FC = () => {
                 </tr>
                 <tr>
                     <th scope="row">3</th>
-                    <td colSpan="2">Larry the Bird</td>
+                    <td colSpan={2}>Larry the Bird</td>
                     <td>@twitter</td>
                 </tr>
                 </tbody>
