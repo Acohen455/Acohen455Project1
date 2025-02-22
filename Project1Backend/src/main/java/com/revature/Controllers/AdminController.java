@@ -6,10 +6,7 @@ import com.revature.services.ReimbursementService;
 import com.revature.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.revature.models.Reimbursement;
 
 import java.util.ArrayList;
@@ -81,6 +78,14 @@ public class AdminController {
     public ResponseEntity<List<Reimbursement>> getAllReimbursements(){
         return ResponseEntity.ok(reimbursementService.getAllReimbursements());
     }
+
+    //best practice is to use a path variable here instead of a passed parameter
+    @DeleteMapping("/deleteuser/{userId}")
+    @AdminOnly
+    public ResponseEntity<UserDTO> deleteUser(@PathVariable int userId){
+        return ResponseEntity.ok(userService.deleteUser(userId));
+    }
+
 
 
 }

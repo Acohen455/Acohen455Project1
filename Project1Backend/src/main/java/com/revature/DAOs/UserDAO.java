@@ -29,4 +29,6 @@ public interface UserDAO extends JpaRepository<User, Integer> {
 
     Optional<List<User>> findUsersByRole(String role);
 
+    void UpdateUserRoleByUserId(Integer userId, String role);
+
 }

@@ -31,8 +31,9 @@ public class Reimbursement {
     @Column(name = "approved", columnDefinition = "boolean", nullable = true)
     private boolean approved;
 
-    //TODO:
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
+    //cascade is already defined in the user entity
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId", referencedColumnName = "userId", nullable = false)
     private User user;
 

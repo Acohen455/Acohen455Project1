@@ -4,6 +4,8 @@ import org.springframework.stereotype.Component;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 //we make this the entity, as this will represent our db data model
 //this ONLY represents the model
 //the DAO will handle any CRUD operations and logic
@@ -31,6 +33,11 @@ public class User{
 
     @Column(name = "role")
     private String role;
+
+    //mappedby indicates the field that owns the relationship in reimbursement
+    //have to designate the relationship here so we can clean orphans and cascade removals
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private List<Reimbursement> reimbursements;
 
     //column for checking if a user can login
     //this is hardcoded to always be true

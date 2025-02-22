@@ -76,8 +76,12 @@ public class ReimbursementService {
 
     //TODO: Implement on the frontend as a drop down with a nested dropdown
     public Optional<Reimbursement> updateReimbursementStatusAndApproval(Integer reimbursementId, boolean status, boolean approved) {
-
+        //this is incredibly wordy and ugly, but this is the only way to do it so spring boot knows how to wire it i think
+        //this is also cleaner than doing it in multiple methods imo
+        //parameter list in the DAO is status, approval status, reimbursement id
+        return reimbursementDAO.setReimbursementStatusAndReimbursementApprovedByReimbursementId(status, approved, reimbursementId);
     }
+
 
 
     //sort an existing list of reimbursements by status

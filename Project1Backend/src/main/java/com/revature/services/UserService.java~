@@ -104,11 +104,6 @@ public class UserService {
         return ResponseEntity.noContent().build();
     }
 
-    @AdminOnly
-    public ResponseEntity updateUserRoleById(int userId, String role) {
-        userDAO.updateUserRoleByUserId(userId, role);
-    }
-
 
 
 
