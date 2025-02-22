@@ -82,17 +82,20 @@ public class UserController {
 
     @PostMapping("/updatedescription/{reimbursementId}")
     public ResponseEntity<Reimbursement> updateDescription(@PathVariable int reimbursementId, @RequestBody String description) {
-        //call the service layer to update the description
-        Reimbursement updatedReimb = reimbursementService.updateReimbursementDescription(description,
-                reimbursementId).orElse(null);
 
-        //if it failed, throw exception
-        if (updatedReimb == null) {
+        //if we cant find the reimbursement, throw an exception
+        if (reimbursementService.findByReimbursementId(reimbursementId).isEmpty()) {
             throw new IllegalArgumentException("Reimbursement not found");
         }
 
+
+        //call the service layer to update the description
+        //dont return anything back
+        reimbursementService.updateReimbursementDescription(description, reimbursementId);
+
+
         //if it succeeded, return the ResponseEntity
-        return ResponseEntity.ok(updatedReimb);
+        return ResponseEntity.ok().build();
     }
 
 }

@@ -28,10 +28,11 @@ public class ReimbursementService {
         return reimbursementDAO.findAllByUserUserId(userId);
     }
 
-    //grabs a single reimbursement by ID
-    public Optional<Reimbursement> findByReimbursementId(Integer reimbursementId) {
+
+    public Optional<Reimbursement> findByReimbursementId(int reimbursementId) {
         return reimbursementDAO.findByReimbursementId(reimbursementId);
     }
+
 
     public Optional<List<Reimbursement>> findByStatusAndUserId(boolean status, Integer userId) {
         return reimbursementDAO.findByPendingAndUserUserId(status, userId);
@@ -65,8 +66,8 @@ public class ReimbursementService {
     }
 
 
-    public Optional<Reimbursement> updateReimbursementDescription(String description, Integer reimbursementId) {
-        return reimbursementDAO.updateReimbursementDescriptionByReimbursementId(description, reimbursementId);
+    public void updateReimbursementDescription(String description, Integer reimbursementId) {
+        reimbursementDAO.updateReimbursementDescriptionByReimbursementId(description, reimbursementId);
     }
 
     public List<Reimbursement> getAllReimbursements() {
@@ -75,11 +76,11 @@ public class ReimbursementService {
     }
 
     //TODO: Implement on the frontend as a drop down with a nested dropdown
-    public Optional<Reimbursement> updateReimbursementStatusAndApproval(Integer reimbursementId, boolean status, boolean approved) {
+    public void updateReimbursementStatusAndApproval(Integer reimbursementId, boolean status, boolean approved) {
         //this is incredibly wordy and ugly, but this is the only way to do it so spring boot knows how to wire it i think
         //this is also cleaner than doing it in multiple methods imo
         //parameter list in the DAO is status, approval status, reimbursement id
-        return reimbursementDAO.setReimbursementStatusAndReimbursementApprovedByReimbursementId(status, approved, reimbursementId);
+        reimbursementDAO.setReimbursementStatusAndReimbursementApprovedByReimbursementId(status, approved, reimbursementId);
     }
 
 

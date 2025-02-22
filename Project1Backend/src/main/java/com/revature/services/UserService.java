@@ -99,6 +99,7 @@ public class UserService {
     //dont need to return anything in the service layer
     @AdminOnly
     public void deleteUserById(int userId) {
+
         userDAO.deleteById(userId);
     }
 
@@ -113,7 +114,7 @@ public class UserService {
         }
 
         //if role is valid, update the user
-        userDAO.updateUserRole(userId, role);
+        userDAO.updateUserRoleByUserId(userId, role);
 
         //if successful, return ok
         return ResponseEntity.ok().build();

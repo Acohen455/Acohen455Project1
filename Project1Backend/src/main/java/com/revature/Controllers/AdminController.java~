@@ -96,6 +96,7 @@ public class AdminController {
         return ResponseEntity.ok(userService.updateUserRoleById(userId, role));
     }
 
+    //function for updating reimbursement status
     @PatchMapping("/updatereimbursement/{reimbursementId}")
     @AdminOnly
     public ResponseEntity updateReimbursement(@PathVariable int reimbursementId,

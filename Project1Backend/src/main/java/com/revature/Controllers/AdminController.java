@@ -102,7 +102,14 @@ public class AdminController {
     public ResponseEntity updateReimbursement(@PathVariable int reimbursementId,
                                               @RequestParam boolean pendingStatus,
                                               @RequestParam boolean approved){
-        return ResponseEntity.ok(reimbursementService.updateReimbursementStatusAndApproval(reimbursementId, pendingStatus, approved));
+
+        if (reimbursementService.findByReimbursementId(reimbursementId).isEmpty()) {
+            throw new IllegalArgumentException("Reimbursement not found");
+        }
+
+        reimbursementService.updateReimbursementStatusAndApproval(reimbursementId, pendingStatus, approved);
+
+        return ResponseEntity.ok().build();
     }
 
 

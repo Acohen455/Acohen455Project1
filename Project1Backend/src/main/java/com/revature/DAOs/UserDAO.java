@@ -5,6 +5,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -35,7 +36,12 @@ public interface UserDAO extends JpaRepository<User, Integer> {
     //this has to be done manually, as spring can only autowire retrievals
     @Modifying
     @Transactional
-    @Query("UPDATE User u SET u.role")
-    void updateUserRoleByUserId(Integer userId, String role);
+    @Query("UPDATE User u SET u.role = :role WHERE u.userId = :userId")
+    void updateUserRoleByUserId(@Param("userId") Integer userId, @Param("role") String role);
+
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM User u WHERE u.userId = :userId")
+    void deleteUserById(@Param("userId") Integer userId);
 
 }

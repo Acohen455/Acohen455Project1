@@ -1,7 +1,11 @@
 package com.revature.DAOs;
 
 import com.revature.models.Reimbursement;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 
@@ -22,9 +26,18 @@ public interface ReimbursementDAO extends JpaRepository<Reimbursement, Integer> 
 
     Optional<List<Reimbursement>> findByApproved(boolean status);
 
-    Optional<Reimbursement> updateReimbursementDescriptionByReimbursementId(String description, Integer reimbursementId);
+    @Modifying
+    @Transactional
+    @Query("UPDATE Reimbursement r SET r.description = :description WHERE r.reimbursementId = :reimbursementId")
+    void updateReimbursementDescriptionByReimbursementId(@Param("description") String description,
+                                                         @Param("reimbursementId") Integer reimbursementId);
 
-    Optional<Reimbursement> setReimbursementStatusAndReimbursementApprovedByReimbursementId(boolean status, boolean approved, Integer reimbursementId);
+    @Modifying
+    @Transactional
+    @Query("UPDATE Reimbursement r SET r.pending = :pending, r.approved = :approved WHERE r.reimbursementId = :reimbursementId")
+    void setReimbursementStatusAndReimbursementApprovedByReimbursementId(@Param("pending") boolean status,
+                                                                                            @Param("approved") boolean approved,
+                                                                                            @Param("reimbursementId") Integer reimbursementId);
 
 
 }
