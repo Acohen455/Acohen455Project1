@@ -39,30 +39,14 @@ public class UserController {
 
     //function for getting user reimbursements
     @GetMapping("/reimbursements")
-    public ResponseEntity<List<Reimbursement>> getUserReimbursements(HttpSession session, @RequestParam int userId) {
+    public ResponseEntity<List<Reimbursement>> getUserReimbursements(HttpSession session, @RequestParam(required=false) Integer userId) {
         //debugging
 
-        if (session == null) {
-            System.out.println("❌ No session found.");
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
+        if (userId == null){
+            userId = (Integer) session.getAttribute("userId");
         }
 
-        System.out.println("✅ Session ID: " + session.getId());
-        System.out.println("🔐 Session Attributes: ");
-        session.getAttributeNames().asIterator().forEachRemaining(attr ->
-                System.out.println("   - " + attr + ": " + session.getAttribute(attr))
-        );
-
-        if (session.getAttribute("userId") == null) {
-            System.out.println("❌ No userId in session.");
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-        }
-
-        System.out.println("🔍 Fetching reimbursements for userId: " + userId);
-
-        if (session.getAttribute("user") == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
-        }
 
 
         //one liner for populating user reimbursements
@@ -79,14 +63,6 @@ public class UserController {
     public ResponseEntity<Reimbursement> createReimbursement(HttpSession session,
                                                              @RequestBody Reimbursement reimbursement,
                                                              @RequestParam(required = false) Integer userId) {
-
-        //deprecated code
-        /*reimbursement.setUser(new User((Integer)session.getAttribute("userId"),
-                                            (String)session.getAttribute("username"),
-                                            (String)session.getAttribute("role")));
-
-
-         */
 
         if ((((String)session.getAttribute("role")).equalsIgnoreCase("user")) ||
             userId == null) {

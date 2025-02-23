@@ -31,6 +31,7 @@ export const AdminViewUserTable:React.FC = () => {
             await axios.delete(`http://localhost:8080/admin/deleteuser`, {withCredentials: true, params : {userId}});
             getAllUsers();
         } catch (error) {
+            // @ts-ignore
             console.error("Failed to fire user:", error.response ? error.response.data : error)
             alert("Failed to fire user");
         }

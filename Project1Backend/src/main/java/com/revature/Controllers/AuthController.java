@@ -54,9 +54,11 @@ public class AuthController {
         UserDTO registeredUser = authService.registerUser(newUser);
 
         HttpSession session = request.getSession(true);
-        session.setAttribute("userId", registeredUser.getUserId());
-        session.setAttribute("username", registeredUser.getUsername());
-        session.setAttribute("role", registeredUser.getRole());
+        if (session.getAttribute("role") == null) {
+            session.setAttribute("userId", registeredUser.getUserId());
+            session.setAttribute("username", registeredUser.getUsername());
+            session.setAttribute("role", registeredUser.getRole());
+        }
 
         //use a response entity to not only return the registered user but also a status code
         return new ResponseEntity<>(registeredUser, HttpStatus.CREATED);
@@ -71,7 +73,15 @@ public class AuthController {
 
         session.setAttribute("userId", loggedInUser.getUserId());
         session.setAttribute("username", loggedInUser.getUsername());
-        session.setAttribute("role", loggedInUser.getRole());
+        session.setAttribute("role", loggedInUser.getRole().toUpperCase());
+
+
+        //debug
+        System.out.println("✅ Session Created: " + session.getId());
+        System.out.println("🔐 Session Attributes: ");
+        System.out.println("   - userId: " + session.getAttribute("userId"));
+        System.out.println("   - username: " + session.getAttribute("username"));
+        System.out.println("   - role: " + session.getAttribute("role"));
 
         //return the user if the info is valid
         //I prefer to explicitly type the return

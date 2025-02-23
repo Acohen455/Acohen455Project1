@@ -39,6 +39,7 @@ export const Login:React.FC = () => {
             if (store.getLoggedInUserRole() == "ADMIN") {
                 navigate("/admin/users");
             } else {
+                console.log("Navigating with userId:", store.loggedInUser.userId);
                 navigate("/reimbursements", { state: { userId: store.loggedInUser.userId } });
             }
 

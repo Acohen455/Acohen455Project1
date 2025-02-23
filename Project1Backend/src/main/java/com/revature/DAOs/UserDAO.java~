@@ -47,8 +47,7 @@ public interface UserDAO extends JpaRepository<User, Integer> {
 
     //write a query to fix the user_id counter after user deletion
     @Transactional
-    @Query(value = "SELECT setval('project1.users_user_id_seq', COALESCE((SELECT MAX(user_id) FROM project1.users), 0) + 1, false)", nativeQuery = true)
-    Integer resetUserIdSequence();
+    @Query(value = "SELECT setval('project1.users_user_id_seq', COALESCE((SELECT MAX(user_id) FROM project1.users), 0) + 1, false)", nativeQuery = true)    Integer resetUserIdSequence();
 
 
     @Modifying

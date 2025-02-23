@@ -34,12 +34,33 @@ export const Register:React.FC = () => {
             alert("Please fill out all fields");
             return;
         }
+            //use try catch blocks for !!!SAFETY!!!
+        /*
+            try {
+                const response = await axios.post("http://localhost:8080/auth/register", regCreds, {withCredentials: true});
 
-        //use try catch blocks for !!!SAFETY!!!
+                store.loggedInUser = response.data;
+
+                if (store.getLoggedInUserRole() == "ADMIN") {
+                    navigate("/admin/users");
+                } else {
+                    console.log(store.loggedInUser.userId)
+                    navigate("/reimbursements", { state: { userId: store.loggedInUser.userId } });
+                }
+
+            } catch {
+                alert("Registration Failed");
+            }
+            */
+
         try {
             const response = await axios.post("http://localhost:8080/auth/register", regCreds, {withCredentials: true});
 
             store.loggedInUser = response.data;
+
+
+
+
 
             if (store.getLoggedInUserRole() == "ADMIN") {
                 navigate("/admin/users");
@@ -51,6 +72,7 @@ export const Register:React.FC = () => {
         } catch {
             alert("Registration Failed");
         }
+
     }
 
 
