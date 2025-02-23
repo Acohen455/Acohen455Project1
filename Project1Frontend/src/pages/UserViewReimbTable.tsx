@@ -58,16 +58,16 @@ export const UserReimbTable: React.FC = () => {
                         <td>{reimbursement.description}</td>
                         <td>{`$${reimbursement.amount.toLocaleString()}`}</td>
                         <td>
-                            {reimbursement.pending ? (
+                            {reimbursement.status === "PENDING" ? (
                                 <span className={"text-success"}>Pending</span>
                             ) : (
                                 <span className={"text-secondary"}>Closed</span>
                             )}
                         </td>
                         <td>
-                            {reimbursement.approved === null ? (
+                            {reimbursement.status === "PENDING" ? (
                                 <span></span>
-                            ) : reimbursement.approved ? (
+                            ) : reimbursement.status === "APPROVED" ? (
                                 <span className={"text-success"}>Approved</span>
                             ) : (
                                 <span className={"text-danger"}>Denied</span>

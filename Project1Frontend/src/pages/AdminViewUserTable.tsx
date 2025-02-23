@@ -26,6 +26,15 @@ export const AdminViewUserTable:React.FC = () => {
         }
     }
 
+    const fireUser = async (userId: number) => {
+        try{
+            await axios.delete(`http://localhost:8080/admin/deleteuser`, {withCredentials: true, params : {userId}});
+            getAllUsers();
+        } catch {
+            alert("Failed to fire user");
+        }
+    }
+
 
 
 
@@ -58,7 +67,7 @@ export const AdminViewUserTable:React.FC = () => {
                         navigate('/reimbursements', { state: { userId: user.userId } });
                     }}>
                         Reimbursements</Button></td>
-                    <td><Button variant="danger" size={"sm"}>Fire</Button></td>
+                    <td><Button variant="danger" size={"sm"} onClick={() => {fireUser(user.userId)}}>Fire</Button></td>
                 </tr>
             ))}
             </tbody>

@@ -24,16 +24,11 @@ public class Reimbursement {
     //going to rename this column to pending
     //this used to be the status column
     //since I want to use booleans here, pending is a better naming scheme
-    @Column(name = "pending", columnDefinition = "boolean", nullable = false)
-    private boolean pending;
-
-    //true = approved, false = declined
-    @Column(name = "approved", columnDefinition = "boolean", nullable = true)
-    private boolean approved;
-
+    @Column(name = "status", columnDefinition = "text", nullable = false)
+    private String status;
 
     //cascade is already defined in the user entity
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name = "userId", referencedColumnName = "userId", nullable = false)
     private User user;
 
@@ -42,12 +37,11 @@ public class Reimbursement {
     public Reimbursement() {
     }
 
-    public Reimbursement(int reimbursementId, String description, double amount, boolean pending, boolean approved, User user) {
+    public Reimbursement(int reimbursementId, String description, double amount, String status, boolean approved, User user) {
         this.reimbursementId = reimbursementId;
         this.description = description;
         this.amount = amount;
-        this.pending = pending;
-        this.approved = approved;
+        this.status = status;
         this.user = user;
     }
 
@@ -77,12 +71,12 @@ public class Reimbursement {
         this.amount = amount;
     }
 
-    public boolean isPending() {
-        return pending;
+    public String getStatus() {
+        return status;
     }
 
-    public void setPending(boolean pending) {
-        this.pending = pending;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public User getUser() {
@@ -94,13 +88,6 @@ public class Reimbursement {
         this.user = user;
     }
 
-    public boolean isApproved() {
-        return approved;
-    }
-
-    public void setApproved(boolean approved) {
-        this.approved = approved;
-    }
 
     //toString
     //TODO: Customize this later
@@ -110,7 +97,7 @@ public class Reimbursement {
                 "reimbursementId=" + reimbursementId +
                 ", description='" + description + '\'' +
                 ", amount=" + amount +
-                ", pending=" + pending +
+                ", pending=" + status +
                 ", user=" + user.toString() +
                 '}';
     }

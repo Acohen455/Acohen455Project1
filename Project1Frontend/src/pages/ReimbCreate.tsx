@@ -13,8 +13,7 @@ export const ReimbCreate:React.FC = () => {
         description: "",
         amount: 0,
         userId: 0,
-        pending: true,
-        approved: null
+        status: "PENDING"
     });
 
     const navigate = useNavigate();

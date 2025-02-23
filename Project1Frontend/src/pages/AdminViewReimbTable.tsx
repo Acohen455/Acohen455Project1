@@ -22,10 +22,10 @@ export const AdminViewReimbTable:React.FC = () => {
         }
     }
 
-    const approveReimbursement = async (reimbursementId: number, pendingBool: boolean, approvedBool: boolean) => {
+    const approveReimbursement = async (reimbursementId: number, statusString: string) => {
         try{
             await axios.put(`http://localhost:8080/admin/updatereimbursement/${reimbursementId}`, null, {withCredentials: true,
-                params: {reimbursementId: reimbursementId, pendingStatus: pendingBool, approved: approvedBool}});
+                params: {reimbursementId: reimbursementId, status: statusString}});
             getAllReimbursements();
         } catch {
             alert("Failed to approve reimbursement");
@@ -57,14 +57,16 @@ export const AdminViewReimbTable:React.FC = () => {
                         <th scope="row">{reimbursement.reimbursementId}</th>
                         <td>{reimbursement.description}</td>
                         <td>{`$${reimbursement.amount.toLocaleString()}`}</td>
-                        <td> {reimbursement.pending ? (
+                        <td> {reimbursement.status === "PENDING" ? (
                                 <Dropdown>
                                     <Dropdown.Toggle variant="secondary" id="dropdown-basic" size={"sm"}>
                                         Pending
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu>
-                                        <Dropdown.Item onClick={() => approveReimbursement(reimbursement.reimbursementId, false, true)}>Approve</Dropdown.Item>
-                                        <Dropdown.Item onClick={() => approveReimbursement(reimbursement.reimbursementId, false, false)}>Deny</Dropdown.Item>
+                                        <Dropdown.Item onClick={() => approveReimbursement(reimbursement.reimbursementId,
+                                                                                                                "APPROVED")}>Approve</Dropdown.Item>
+                                        <Dropdown.Item onClick={() => approveReimbursement(reimbursement.reimbursementId,
+                                                                                                                        "DENIED")}>Deny</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
                         ):
@@ -72,10 +74,12 @@ export const AdminViewReimbTable:React.FC = () => {
                         }
 
                         </td>
-                        <td>{reimbursement.approved ? (
+                        <td>{reimbursement.status === "APPROVED" ? (
                             <span className={"text-success"}>Approved</span>
-                        ): (
+                        ) : reimbursement.status === "DENIED" ? (
                             <span className={"text-danger"}>Denied</span>
+                        ) : (
+                            <span></span>
                         )}</td>
                         <td>{reimbursement.user.userId}</td>
                     </tr>

@@ -1,10 +1,8 @@
 package com.revature.Controllers;
 
-import com.revature.DAOs.UserDAO;
 import com.revature.models.Reimbursement;
 import com.revature.models.User;
 import com.revature.services.ReimbursementService;
-import com.revature.services.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -67,8 +65,8 @@ public class UserController {
     //can also do a hybrid method -- grab all, then sort -- im doing this
     //TODO: MAKE SURE WE PASS THE PARAMETER
     @GetMapping("/pendingreimbursements")
-    public ResponseEntity<List<Reimbursement>> getReimbursementsByPendingStatus(HttpSession session,
-                                                                                @RequestParam boolean status) {
+    public ResponseEntity<List<Reimbursement>> getReimbursementsByStatus(HttpSession session,
+                                                                         @RequestParam String status) {
         //call the service layer to get reimbursements by status
         //to make sure the user can only access their own, we grab their ID off the session token
         List<Reimbursement> pendingList = reimbursementService.findByStatusAndUserId(status,

@@ -103,8 +103,7 @@ public class UserService {
     //dont need to return anything in the service layer
     @AdminOnly
     public void deleteUserById(int userId) {
-
-        userDAO.deleteById(userId);
+        userDAO.deleteUserById(userId);
     }
 
     @AdminOnly

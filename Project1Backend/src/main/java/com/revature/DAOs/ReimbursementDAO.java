@@ -20,11 +20,9 @@ public interface ReimbursementDAO extends JpaRepository<Reimbursement, Integer> 
 
     Optional<List<Reimbursement>> findAllByUserUserId(int userId);
 
-    Optional<List<Reimbursement>> findByPendingAndUserUserId(boolean status, Integer userId);
+    Optional<List<Reimbursement>> findByStatusAndUserUserId(String status, Integer userId);
 
-    Optional<List<Reimbursement>> findByPending(boolean status);
-
-    Optional<List<Reimbursement>> findByApproved(boolean status);
+    Optional<List<Reimbursement>> findByStatus(String status);
 
     @Modifying
     @Transactional
@@ -34,9 +32,8 @@ public interface ReimbursementDAO extends JpaRepository<Reimbursement, Integer> 
 
     @Modifying
     @Transactional
-    @Query("UPDATE Reimbursement r SET r.pending = :pending, r.approved = :approved WHERE r.reimbursementId = :reimbursementId")
-    void setReimbursementStatusAndReimbursementApprovedByReimbursementId(@Param("pending") boolean status,
-                                                                                            @Param("approved") boolean approved,
+    @Query("UPDATE Reimbursement r SET r.status = :status WHERE r.reimbursementId = :reimbursementId")
+    void setReimbursementStatusByReimbursementId(@Param("status") String status,
                                                                                             @Param("reimbursementId") Integer reimbursementId);
 
 

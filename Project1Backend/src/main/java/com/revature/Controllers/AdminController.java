@@ -9,10 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.revature.models.Reimbursement;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/admin")
@@ -20,6 +18,10 @@ public class AdminController {
 
     private final UserService userService;
     private final ReimbursementService reimbursementService;
+
+    private final String pendingStatus = "PENDING";
+    private final String approvedStatus = "APPROVED";
+    private final String deniedStatus = "DENIED";
 
     @Autowired
     public AdminController(UserService userService, ReimbursementService reimbursementService) {
@@ -42,10 +44,10 @@ public class AdminController {
     //https://chat.deepseek.com/a/chat/s/caaa4e44-e60e-43fc-b2a7-f491ef7363d5
     @GetMapping("/pendingreimbursements")
     @AdminOnly
-    public ResponseEntity<List<Reimbursement>> getReimbursementsByPendingStatus(@RequestParam boolean status){
+    public ResponseEntity<List<Reimbursement>> getReimbursementsByPending(){
         //create list and populate
         //we can do this with control flow logic, but easier this way
-        List<Reimbursement> pendingList = reimbursementService.findByStatus(status).orElse(Collections.emptyList());
+        List<Reimbursement> pendingList = reimbursementService.findByStatus(pendingStatus).orElse(Collections.emptyList());
         //return the list with an ok status code
         return ResponseEntity.ok(pendingList);
     }
@@ -54,10 +56,20 @@ public class AdminController {
     //true = approved, false = declined
     @GetMapping("/approvedreimbursements")
     @AdminOnly
-    public ResponseEntity<List<Reimbursement>> getApprovedReimbursements(@RequestParam boolean approved){
+    public ResponseEntity<List<Reimbursement>> getApprovedReimbursements(){
         //this code is the same as pending reimbursement code
         //list for returning
-        List<Reimbursement> pendingList = reimbursementService.findByApproved(approved).orElse(Collections.emptyList());
+        List<Reimbursement> pendingList = reimbursementService.findByStatus(approvedStatus).orElse(Collections.emptyList());
+        //return the list with an ok status code
+        return ResponseEntity.ok(pendingList);
+    }
+
+    @GetMapping("/deniedreimbursements")
+    @AdminOnly
+    public ResponseEntity<List<Reimbursement>> getDeniedReimbursements(){
+        //this code is the same as pending reimbursement code
+        //list for returning
+        List<Reimbursement> pendingList = reimbursementService.findByStatus(deniedStatus).orElse(Collections.emptyList());
         //return the list with an ok status code
         return ResponseEntity.ok(pendingList);
     }
@@ -80,9 +92,9 @@ public class AdminController {
     }
 
     //best practice is to use a path variable here instead of a passed parameter
-    @DeleteMapping("/deleteuser/{userId}")
+    @DeleteMapping("/deleteuser")
     @AdminOnly
-    public ResponseEntity deleteUser(@PathVariable int userId){
+    public ResponseEntity deleteUser(@RequestParam int userId){
         userService.deleteUserById(userId);
         //this is best practice for deletion
         return ResponseEntity.noContent().build();
@@ -100,17 +112,17 @@ public class AdminController {
     @PutMapping("/updatereimbursement/{reimbursementId}")
     @AdminOnly
     public ResponseEntity updateReimbursement(@PathVariable int reimbursementId,
-                                              @RequestParam boolean pendingStatus,
-                                              @RequestParam boolean approved){
+                                              @RequestParam String status){
 
         if (reimbursementService.findByReimbursementId(reimbursementId).isEmpty()) {
             throw new IllegalArgumentException("Reimbursement not found");
         }
 
-        reimbursementService.updateReimbursementStatusAndApproval(reimbursementId, pendingStatus, approved);
+        reimbursementService.updateReimbursementStatus(reimbursementId, status);
 
         return ResponseEntity.ok().build();
     }
+
 
 
 

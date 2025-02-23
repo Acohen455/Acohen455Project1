@@ -1,3 +1,6 @@
+//This doesn't actually do anything anymore, but im afraid to remove it nonetheless
+
+
 export const NameInput:React.FC = () => {
     return (
         <form>

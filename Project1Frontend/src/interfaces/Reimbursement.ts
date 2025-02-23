@@ -4,7 +4,6 @@ export interface Reimbursement{
     reimbursementId: number;
     description: string;
     amount: number;
-    pending: boolean;
-    approved: boolean;
+    status: string;
     user: User;
 }
