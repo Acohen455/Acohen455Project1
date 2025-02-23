@@ -1,0 +1,56 @@
+export const ReimbCreate:React.FC = () => {
+
+
+
+    return (
+        <form>
+            <div className={"card p-5 shadow-lg"} style={{width: "25rem"}}>
+                <h3 className={"mb-4"}>Create Reimbursement</h3>
+                {/*<!-- Email input -->*/}
+                <div className="form-floating mb-1 pb-2">
+                    {/* styling for bootstrap goes in the classnames */}
+                    {/* here we're indicating a border of thickness 1 and color grey */}
+                    <textarea id="reimbursementDescription" className="form-control border border-1 border-grey" style={{fontSize:".95rem",
+                        resize: "none", overflow:"hidden"}}
+                    rows={1}
+                      onInput={(e) => {
+                          const target = e.target as HTMLTextAreaElement;
+                          target.style.height = "auto"; // Reset height to prevent jumping
+                          target.style.height = `${target.scrollHeight}px`; // Adjust dynamically
+                      }
+                    }/>
+                    {/* TODO: get label to float to the right spot */}
+                    <label className="form-label form-control-sm" htmlFor="emailInput" style={{}} >Reimbursement Description</label>
+                </div>
+
+                {/*<!-- Password input -->*/}
+                <div className="form-floating mb-1">
+                    <input type="number" id="amountInput" className="form-control border border-1 border-grey" style={{fontSize:".95rem"}}
+                    min={"0"} step={"0.01"} placeholder={"$00.00"}/>
+                    <label className="form-label form-control-sm" htmlFor="amountInput">Amount</label>
+                </div>
+
+                {/*<!-- 2 column grid layout for inline styling -->*/}
+                <div className="row mb-4">
+                    <div className="col">
+                        {/*<!-- Simple link -->*/}
+                        <a href="#!">Forgot password?</a>
+                    </div>
+                </div>
+
+                {/*}<!-- Submit button -->*/}
+                <button type="button" data-mdb-button-init data-mdb-ripple-init
+                        className="btn btn-primary btn-block mb-4">Sign in
+                </button>
+
+                {/* Register buttons */}
+                <div className="text-center">
+                    <p>Not a user? <a href="#!">Register</a></p>
+
+                </div>
+            </div>
+        </form>
+    )
+
+
+}
