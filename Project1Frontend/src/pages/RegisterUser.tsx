@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import axios from 'axios';
 import {store} from "../GlobalData/store.ts";
 
-export const Register:React.FC = () => {
+export const RegisterUser:React.FC = () => {
 
 
     const navigate = useNavigate();
@@ -15,7 +15,8 @@ export const Register:React.FC = () => {
         username: "",
         password: "",
         firstName: "",
-        lastName: ""
+        lastName: "",
+        role: ""
     })
 
     const storeValues = (e:React.ChangeEvent<HTMLInputElement>) => {
@@ -30,23 +31,18 @@ export const Register:React.FC = () => {
 
     const register = async () => {
 
-        if (regCreds.username == "" || regCreds.password == "" || regCreds.firstName == "" || regCreds.lastName == "") {
+        if (regCreds.username == "" || regCreds.password == "" || regCreds.firstName == "" || regCreds.lastName == "" || regCreds.role == "") {
             alert("Please fill out all fields");
             return;
         }
-
         //use try catch blocks for !!!SAFETY!!!
         try {
             const response = await axios.post("http://localhost:8080/auth/register", regCreds, {withCredentials: true});
 
             store.loggedInUser = response.data;
 
-            if (store.getLoggedInUserRole() == "ADMIN") {
-                navigate("/admin/users");
-            } else {
-                console.log(store.loggedInUser.userId)
-                navigate("/reimbursements", { state: { userId: store.loggedInUser.userId } });
-            }
+            navigate("/admin/users");
+
 
         } catch {
             alert("Registration Failed");
@@ -91,6 +87,12 @@ export const Register:React.FC = () => {
                 <div className="form-floating mb-1 pb-2">
                     <input type="password" id="passwordInput" className="form-control border border-1 border-grey"
                            style={{fontSize:".95rem"}} name={"password"} onChange={storeValues}/>
+                    <label className="form-label form-control-sm" htmlFor="passwordInput">Password</label>
+                </div>
+
+                <div className="form-floating mb-1 pb-2">
+                    <input type="text" id="roleInput" className="form-control border border-1 border-grey"
+                           style={{fontSize:".95rem"}} name={"role"} onChange={storeValues}/>
                     <label className="form-label form-control-sm" htmlFor="passwordInput">Password</label>
                 </div>
 

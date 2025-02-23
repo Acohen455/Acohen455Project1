@@ -5,6 +5,7 @@ import com.revature.DTOs.RegisterDTO;
 import com.revature.DTOs.UserDTO;
 import com.revature.models.User;
 import com.revature.services.AuthService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,7 +33,7 @@ public class AuthController {
     //make sure we map this to a post request
     //changing the parameters to params instead of a requestbody
     @PostMapping("/register")
-    public ResponseEntity<UserDTO> registerUser(@RequestBody User user) {
+    public ResponseEntity<UserDTO> registerUser(@RequestBody User user, HttpServletRequest request) {
 
         if (user.getRole() == null) {
             user.setRole("USER");
@@ -51,6 +52,11 @@ public class AuthController {
 
         // pass password encoding responsibilities to the service layer
         UserDTO registeredUser = authService.registerUser(newUser);
+
+        HttpSession session = request.getSession(true);
+        session.setAttribute("userId", registeredUser.getUserId());
+        session.setAttribute("username", registeredUser.getUsername());
+        session.setAttribute("role", registeredUser.getRole());
 
         //use a response entity to not only return the registered user but also a status code
         return new ResponseEntity<>(registeredUser, HttpStatus.CREATED);

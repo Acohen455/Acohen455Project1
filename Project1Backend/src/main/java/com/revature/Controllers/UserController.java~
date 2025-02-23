@@ -6,6 +6,7 @@ import com.revature.services.ReimbursementService;
 import com.revature.services.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,6 +40,32 @@ public class UserController {
     //function for getting user reimbursements
     @GetMapping("/reimbursements")
     public ResponseEntity<List<Reimbursement>> getUserReimbursements(HttpSession session, @RequestParam int userId) {
+        //debugging
+        HttpSession session = request.getSession(false);
+
+        if (session == null) {
+            System.out.println("❌ No session found.");
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        System.out.println("✅ Session ID: " + session.getId());
+        System.out.println("🔐 Session Attributes: ");
+        session.getAttributeNames().asIterator().forEachRemaining(attr ->
+                System.out.println("   - " + attr + ": " + session.getAttribute(attr))
+        );
+
+        if (session.getAttribute("userId") == null) {
+            System.out.println("❌ No userId in session.");
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        System.out.println("🔍 Fetching reimbursements for userId: " + userId);
+
+        if (session.getAttribute("user") == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+
+
         //one liner for populating user reimbursements
         //repurposed to take a param so we can use this for filter
         List<Reimbursement> userReimbList = reimbursementService.findByUserId(userId).orElse(Collections.emptyList());
@@ -62,7 +89,8 @@ public class UserController {
 
          */
 
-        if (((String)session.getAttribute("role")).equalsIgnoreCase("user") ) {
+        if ((((String)session.getAttribute("role")).equalsIgnoreCase("user")) ||
+            userId == null) {
             reimbursement.setUser(userService.getUserById((Integer)session.getAttribute("userId")).getBody().orElse(null));
         } else {
             reimbursement.setUser(userService.getUserById(userId).getBody().orElse(null));

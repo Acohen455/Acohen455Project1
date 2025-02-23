@@ -55,6 +55,7 @@ public class User{
     }
 
 
+    /*
     //partial constructor
 
     public User(int userId, String username, String role) {
@@ -63,7 +64,7 @@ public class User{
         this.role = role;
     }
 
-    public User(String firstName, String lastName, String username, String password, String role) {
+    public User(String username, String password, String role, String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
@@ -83,7 +84,7 @@ public class User{
         this.role = role;
     }
 
-
+*/
     //setters and getters
 
     //setters

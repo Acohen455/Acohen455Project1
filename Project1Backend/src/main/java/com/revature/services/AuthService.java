@@ -64,13 +64,13 @@ public class AuthService {
         }
 
 
-        User userToSave = new User(
-                newUser.getUsername(),
-                newUser.getPassword(),
-                newUser.getRole(),
-                newUser.getFirstName(),
-                newUser.getLastName()
-        );
+        User userToSave = new User();
+
+        userToSave.setFirstName(newUser.getFirstName());
+        userToSave.setLastName(newUser.getLastName());
+        userToSave.setUsername(newUser.getUsername());
+        userToSave.setPassword(newUser.getPassword());
+        userToSave.setRole(newUser.getRole());
 
         //save the user -- pops back the saved object
         User returnedUser = userDAO.save(userToSave);

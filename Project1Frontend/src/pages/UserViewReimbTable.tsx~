@@ -18,6 +18,9 @@ export const UserReimbTable: React.FC = () => {
     const [reimbursements, setReimbursements] = useState<Reimbursement[]>([]);
 
     useEffect(() => {
+        console.log("Location state:", location.state);  // Log the whole state
+        console.log("Extracted userId:", userId);
+
             if (userId) {
                 console.log("Fetching reimbursements for userId:", userId);
                 getUserReimbursements(userId);

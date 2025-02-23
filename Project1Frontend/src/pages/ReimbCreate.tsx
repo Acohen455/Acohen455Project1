@@ -18,7 +18,7 @@ export const ReimbCreate:React.FC = () => {
 
     const navigate = useNavigate();
 
-    const storeValues = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const storeValues = (e:React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         //store the name of the box and the value of the inputs
         const name = e.target.name;
         const value = e.target.value;
@@ -69,12 +69,15 @@ export const ReimbCreate:React.FC = () => {
                     {/* here we're indicating a border of thickness 1 and color grey */}
                     <textarea id="reimbursementDescription" className="form-control border border-1 border-grey" style={{fontSize:".95rem",
                         resize: "none", overflow:"hidden"}}
+                        name={"description"}
+                          onChange={storeValues}
                     rows={1}
                       onInput={(e) => {
                           const target = e.target as HTMLTextAreaElement;
                           target.style.height = "auto"; // Reset height to prevent jumping
                           target.style.height = `${target.scrollHeight}px`; // Adjust dynamically
                       }
+
                     }/>
                     {/* TODO: get label to float to the right spot */}
                     <label className="form-label form-control-sm" htmlFor="reimbursementDescription">Reimbursement Description</label>

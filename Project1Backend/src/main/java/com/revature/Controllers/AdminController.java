@@ -2,9 +2,11 @@ package com.revature.Controllers;
 
 import com.revature.DTOs.UserDTO;
 import com.revature.aspects.AdminOnly;
+import com.revature.models.User;
 import com.revature.services.ReimbursementService;
 import com.revature.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.revature.models.Reimbursement;
@@ -96,6 +98,7 @@ public class AdminController {
     @AdminOnly
     public ResponseEntity deleteUser(@RequestParam int userId){
         userService.deleteUserById(userId);
+        userService.resetUserIdSequence();
         //this is best practice for deletion
         return ResponseEntity.noContent().build();
     }
@@ -121,6 +124,16 @@ public class AdminController {
         reimbursementService.updateReimbursementStatus(reimbursementId, status);
 
         return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/registeruser")
+    @AdminOnly
+    public ResponseEntity registerUser(@RequestParam("firstName") String firstName,
+                                       @RequestParam("lastName") String lastName,
+                                       @RequestParam("username") String username,
+                                       @RequestParam("password") String password,
+                                       @RequestParam("role") String role) {
+        return ResponseEntity.ok(userService.registerUser(firstName, lastName, username, password, role));
     }
 
 

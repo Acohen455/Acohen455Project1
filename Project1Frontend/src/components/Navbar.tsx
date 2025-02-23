@@ -25,6 +25,7 @@ export const Navbar:React.FC = () => {
                     <div>
                         <Button className={"me-2"} variant="primary" onClick={()=>navigate("/admin/users")}>Users</Button>
                         <Button variant={"primary"} onClick={()=>navigate("/admin/reimbursements")}>Reimbursements</Button>
+                        <Button variant="primary" className={"ms-2"}>Register User</Button>
                     </div>
                 ) : null}
 

@@ -3,6 +3,7 @@ package com.revature.services;
 import com.revature.DAOs.UserDAO;
 import com.revature.DTOs.UserDTO;
 import com.revature.aspects.AdminOnly;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -128,7 +129,17 @@ public class UserService {
         return ResponseEntity.ok(userDAO.findById(userId));
     }
 
+    @AdminOnly
+    public ResponseEntity resetUserIdSequence() {
+        userDAO.resetUserIdSequence();
+        return ResponseEntity.ok().build();
+    }
 
+    @AdminOnly
+    public ResponseEntity registerUser(String firstName, String lastName, String username, String password, String role) {
+        userDAO.insertUser(firstName, lastName, username, password, role, true);
+        return ResponseEntity.ok().build();
+    }
 
 
 

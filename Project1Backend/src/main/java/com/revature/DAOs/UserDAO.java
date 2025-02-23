@@ -44,4 +44,26 @@ public interface UserDAO extends JpaRepository<User, Integer> {
     @Query("DELETE FROM User u WHERE u.userId = :userId")
     void deleteUserById(@Param("userId") Integer userId);
 
+    //write a query to fix the user_id counter after user deletion
+    @Transactional
+    @Query(value = "SELECT setval('project1.users_user_id_seq', COALESCE((SELECT MAX(user_id) FROM project1.users), 0) + 1, false)", nativeQuery = true)    Integer resetUserIdSequence();
+
+
+    @Modifying
+    @Transactional
+    @Query(value = "INSERT INTO project1.users (first_name, last_name, username, password, role, enabled) " +
+            "VALUES (:firstName, :lastName, :username, :password, :role, true)",
+            nativeQuery = true)
+    void insertUser(@Param("firstName") String firstName,
+                    @Param("lastName") String lastName,
+                    @Param("username") String username,
+                    @Param("password") String password,
+                    @Param("role") String role,
+                    @Param("enabled") boolean enabled);
+
+
+
+
+
+
 }
