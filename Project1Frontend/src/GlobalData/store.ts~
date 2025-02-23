@@ -1,0 +1,17 @@
+export const store = {
+    loggedInUser: {
+        userId: 0,
+        username: "",
+        role: "",
+    },
+    listeners: new Set<() => void>(),
+    setLoggedInUser(newUser: {userId: number, username: string, role: string}) {
+        this.loggedInUser = newUser;
+        this.listeners.forEach((listener) => listener());
+    },
+
+    subscribe(callback:() => void){
+        this.listeners.add(callback);
+        return () => this.listeners.delete(callback);
+    }
+}
