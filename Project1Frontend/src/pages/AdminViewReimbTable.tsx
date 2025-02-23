@@ -32,7 +32,7 @@ export const AdminViewReimbTable:React.FC = () => {
                     <tr key={reimbursement.id}>
                         <th scope="row">{reimbursement.id}</th>
                         <td>{reimbursement.description}</td>
-                        <td>{reimbursement.amount}</td>
+                        <td>{`$${reimbursement.amount.toLocaleString()}`}</td>
                         <td> {reimbursement.pending ? (
                                 <Dropdown>
                                     <Dropdown.Toggle variant="secondary" id="dropdown-basic" size={"sm"}>

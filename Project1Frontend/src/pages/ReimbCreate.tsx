@@ -42,14 +42,13 @@ export const ReimbCreate:React.FC = () => {
                     />
                 </div>
 
-                    {/*this allows us to manually set user id */}
-                {store.loggedInUser}
-                        <div className={"input-group"}>
-                            <span className="input-group-text mb-3">User ID</span>
-                            <input type={"number"} className={"form-control"} placeholder={"User ID"}/>
-                        </div>
-
-
+                    {/*this allows us to manually set user id  if we're an admin*/}
+                {store.getLoggedInUser()  == "ADMIN"  ? (
+                    <div className={"input-group"}>
+                        <span className="input-group-text mb-3">User ID</span>
+                        <input type={"number"} className={"form-control"} placeholder={"User ID"}/>
+                    </div>
+                ) : null}
 
                 {/*}<!-- Submit button -->*/}
                 <button type="button" data-mdb-button-init data-mdb-ripple-init

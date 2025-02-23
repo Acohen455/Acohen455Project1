@@ -3,5 +3,9 @@ export const store = {
         userId: 0,
         username: "",
         role: "",
+    },
+
+    getLoggedInUser: function () {
+        return this.loggedInUser.role.toUpperCase();
     }
 }

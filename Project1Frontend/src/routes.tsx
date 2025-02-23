@@ -7,6 +7,7 @@ import {AdminViewUserTable} from "./pages/AdminViewUserTable.tsx";
 import {Layout} from "./components/Layout.tsx";
 import {AdminViewReimbTable} from "./pages/AdminViewReimbTable.tsx";
 import {ReimbCreate} from "./pages/ReimbCreate.tsx";
+import {UserReimbTable} from "./pages/UserViewReimbTable.tsx";
 
 
 export const router = createBrowserRouter([
@@ -21,6 +22,7 @@ export const router = createBrowserRouter([
             {path: "/admin/users", element: <AdminViewUserTable />},
             {path: "/admin/reimbursements", element: <AdminViewReimbTable />},
             {path: "/reimbcreate", element: <ReimbCreate />},
+            {path: "/user/reimbursements", element: <UserReimbTable />},
         ]
     }
 
