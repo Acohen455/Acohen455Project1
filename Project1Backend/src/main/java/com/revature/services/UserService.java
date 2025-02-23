@@ -123,6 +123,11 @@ public class UserService {
         return ResponseEntity.ok().build();
     }
 
+    @AdminOnly
+    public ResponseEntity<Optional<User>> getUserById(int userId) {
+        return ResponseEntity.ok(userDAO.findById(userId));
+    }
+
 
 
 

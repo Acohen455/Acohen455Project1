@@ -62,8 +62,7 @@ public class UserController {
 
          */
 
-        if ((((String)session.getAttribute("role")).equalsIgnoreCase("user")) ||
-            userId == null) {
+        if (((String)session.getAttribute("role")).equalsIgnoreCase("user") ) {
             reimbursement.setUser(userService.getUserById((Integer)session.getAttribute("userId")).getBody().orElse(null));
         } else {
             reimbursement.setUser(userService.getUserById(userId).getBody().orElse(null));

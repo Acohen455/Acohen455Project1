@@ -38,7 +38,14 @@ export const ReimbCreate:React.FC = () => {
 
     const submitReimbursement = async () => {
         try {
-            await axios.post("http://localhost:8080/createreimbursement", reimbursement, {withCredentials: true});
+            if (store.getLoggedInUserRole() !== "ADMIN" || (store.getLoggedInUserRole() == "ADMIN" && !reimbursement.userId)) {
+                await axios.post("http://localhost:8080/createreimbursement", reimbursement, {withCredentials: true,
+                    params: {userId: store.loggedInUser.userId}});
+            } else if (store.getLoggedInUserRole() == "ADMIN") {
+                await axios.post("http://localhost:8080/createreimbursement", reimbursement, {withCredentials: true,
+                    params: {userId: reimbursement.userId}});
+            }
+
 
             if (store.getLoggedInUserRole() == "ADMIN") {
                 navigate("/admin/reimbursements");
