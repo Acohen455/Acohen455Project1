@@ -56,7 +56,10 @@ export const Register:React.FC = () => {
         try {
             const response = await axios.post("http://localhost:8080/auth/register", regCreds, {withCredentials: true});
 
-            store.loggedInUser = response.data;
+            if (store.getLoggedInUserRole() !== "ADMIN"){
+                store.loggedInUser = response.data;
+            }
+
 
 
 

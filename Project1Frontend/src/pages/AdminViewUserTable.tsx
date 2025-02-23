@@ -69,7 +69,10 @@ export const AdminViewUserTable:React.FC = () => {
                         navigate('/reimbursements', { state: { userId: user.userId } });
                     }}>
                         Reimbursements</Button></td>
-                    <td><Button variant="danger" size={"sm"} onClick={() => {fireUser(user.userId)}}>Fire</Button></td>
+                    <td>
+                        {user.role == "ADMIN" ? null :(<Button variant="danger" size={"sm"} onClick={() => {fireUser(user.userId)}}>Fire</Button>)}
+                    </td>
+
                 </tr>
             ))}
             </tbody>
