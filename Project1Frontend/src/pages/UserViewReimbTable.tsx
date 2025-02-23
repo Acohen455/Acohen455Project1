@@ -2,6 +2,8 @@ import {useEffect, useState} from "react";
 import {Reimbursement} from "../interfaces/Reimbursement.ts";
 import axios from "axios";
 import {useLocation} from "react-router-dom";
+import {store} from "../GlobalData/store.ts";
+import Dropdown from "react-bootstrap/Dropdown";
 
 
 export const UserReimbTable: React.FC = () => {
@@ -39,6 +41,18 @@ export const UserReimbTable: React.FC = () => {
     }
 
 
+    const approveReimbursement = async (reimbursementId: number, statusString: string) => {
+        try{
+            await axios.put(`http://localhost:8080/admin/updatereimbursement/${reimbursementId}`, null, {withCredentials: true,
+                params: {reimbursementId: reimbursementId, status: statusString}});
+            //getAllReimbursements();
+        } catch {
+            alert("Failed to approve reimbursement");
+        }
+    }
+
+
+
 
     return (
         <div className={"container-fluid vh-100 vw-95 mx-auto align-items-center justify-content-center"}>
@@ -60,11 +74,21 @@ export const UserReimbTable: React.FC = () => {
                         <td>{reimbursement.description}</td>
                         <td>{`$${reimbursement.amount.toLocaleString()}`}</td>
                         <td>
-                            {reimbursement.status === "PENDING" ? (
+                            {(reimbursement.status === "PENDING" && store.getLoggedInUserRole() === "USER") ? (
                                 <span className={"text-success"}>Pending</span>
-                            ) : (
-                                <span className={"text-secondary"}>Closed</span>
-                            )}
+                            ) :(reimbursement.status === "PENDING" && store.getLoggedInUserRole() === "ADMIN") ?(
+                                    <Dropdown>
+                                        <Dropdown.Toggle variant="secondary" id="dropdown-basic" size={"sm"}>
+                                            Pending
+                                        </Dropdown.Toggle>
+                                        <Dropdown.Menu>
+                                            <Dropdown.Item onClick={() => approveReimbursement(reimbursement.reimbursementId,
+                                                "APPROVED")}>Approve</Dropdown.Item>
+                                            <Dropdown.Item onClick={() => approveReimbursement(reimbursement.reimbursementId,
+                                                "DENIED")}>Deny</Dropdown.Item>
+                                        </Dropdown.Menu>
+                                    </Dropdown>
+                            ) : (<span className={"text-secondary"}>Closed</span>)}
                         </td>
                         <td>
                             {reimbursement.status === "PENDING" ? (
