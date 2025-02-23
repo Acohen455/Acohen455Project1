@@ -30,6 +30,7 @@ export const Navbar:React.FC = () => {
 
                 {store.getLoggedInUserRole() !== "" ? (
                     <div className="ms-2">
+                        <Button className={"me-2"} variant = "primary" onClick={() => navigate("/reimbcreate")}>Create Reimbursement</Button>
                         <Button className={"me-2"} variant = "primary" onClick={() => {store.resetStore(); navigate("/")}}>Logout</Button>
                     </div>) : null
                 }

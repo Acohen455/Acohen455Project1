@@ -12,6 +12,7 @@ export const UserReimbTable: React.FC = () => {
 
 
     //TODO: REMEMBER TO PASS PROPS!!!!
+    //TODO: Figure out why passing null values for the status column breaks the database calls
     const [reimbursements, setReimbursements] = useState<Reimbursement[]>([]);
 
     useEffect(() => {
@@ -52,8 +53,8 @@ export const UserReimbTable: React.FC = () => {
                 </thead>
                 <tbody>
                 {reimbursements.map((reimbursement) => (
-                    <tr key={reimbursement.id}>
-                        <th scope="row">{reimbursement.id}</th>
+                    <tr key={reimbursement.reimbursementId}>
+                        <th scope="row">{reimbursement.reimbursementId}</th>
                         <td>{reimbursement.description}</td>
                         <td>{`$${reimbursement.amount.toLocaleString()}`}</td>
                         <td>
@@ -64,7 +65,9 @@ export const UserReimbTable: React.FC = () => {
                             )}
                         </td>
                         <td>
-                            {reimbursement.approved ? (
+                            {reimbursement.approved === null ? (
+                                <span></span>
+                            ) : reimbursement.approved ? (
                                 <span className={"text-success"}>Approved</span>
                             ) : (
                                 <span className={"text-danger"}>Denied</span>
