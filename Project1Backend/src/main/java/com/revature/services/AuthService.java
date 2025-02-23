@@ -71,7 +71,9 @@ public class AuthService {
         UserDTO outgoingUser = new UserDTO(
                 returnedUser.getUserId(),
                 returnedUser.getUsername(),
-                returnedUser.getRole()
+                returnedUser.getRole(),
+                returnedUser.getFirstName(),
+                returnedUser.getLastName()
         );
 
         //return the DTO

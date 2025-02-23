@@ -17,10 +17,10 @@ export const Login:React.FC = () => {
     })
 
     //store user inputs
-    const storeValues = (event:React.ChangeEvent<HTMLInputElement>) => {
+    const storeValues = (e:React.ChangeEvent<HTMLInputElement>) => {
         //store the name of the box and the value of the inputs
-        const name = event.target.name;
-        const value = event.target.value;
+        const name = e.target.name;
+        const value = e.target.value;
 
         //set login credentials
         setLoginCreds((loginCreds) => ({...loginCreds, [name]:value}));
@@ -56,7 +56,7 @@ export const Login:React.FC = () => {
                 {/* styling for bootstrap goes in the classnames */}
                 {/* here we're indicating a border of thickness 1 and color grey */}
                 <input type="text" id="usernameInput" className="form-control border border-1 border-grey" style={{fontSize:".95rem"}}
-                       onChange={storeValues}/>
+                       onChange={storeValues} name={"username"}/>
                 {/* TODO: get label to float to the right spot */}
                 <label className="form-label form-control-sm" htmlFor="usernameInput" style={{}} >Username</label>
             </div>
@@ -64,7 +64,7 @@ export const Login:React.FC = () => {
             {/*<!-- Password input -->*/}
             <div className="form-floating mb-1">
                 <input type="password" id="passwordInput" className="form-control border border-1 border-grey" style={{fontSize:".95rem"}}
-                       onChange={storeValues}/>
+                       onChange={storeValues} name={"password"}/>
                 <label className="form-label form-control-sm" htmlFor="passwordInput">Password</label>
             </div>
 

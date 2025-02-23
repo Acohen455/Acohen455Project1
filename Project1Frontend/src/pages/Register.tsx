@@ -3,8 +3,29 @@ import {useState} from "react";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import axios from 'axios';
 
 export const Register:React.FC = () => {
+
+
+    const navigate = useNavigate();
+
+    const[regCreds, setRegCreds] = useState({
+        username: "",
+        password: ""
+    })
+
+    const storeValues = (e:React.ChangeEvent<HTMLInputElement>) => {
+        //store the name of the box and the value of the inputs
+        const name = e.target.name;
+        const value = e.target.value;
+
+        //set login credentials
+        setRegCreds((regCreds) => ({...regCreds, [name]:value}));
+    }
+
+
+
 
 
     return (

@@ -53,8 +53,6 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<UserDTO> userLogin(@RequestBody LoginDTO incomingUser, HttpSession session) {
 
-        System.out.println(incomingUser.toString());
-
         UserDTO loggedInUser = authService.login(incomingUser);
 
         session.setAttribute("userId", loggedInUser.getUserId());

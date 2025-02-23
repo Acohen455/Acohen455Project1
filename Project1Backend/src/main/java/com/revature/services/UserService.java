@@ -32,13 +32,17 @@ public class UserService {
         //JPArepository method for grabbing users
         List<User> allUsers = userDAO.findAll();
 
+
+
         //list for holding DTOs
         //dont want even admins to have password access
         List<UserDTO> outgoingUsers = new ArrayList<>();
 
         //use a for each loop
         for (User user : allUsers){
-            outgoingUsers.add(new UserDTO(user));
+           UserDTO userDTO = new UserDTO(user);
+           System.out.println(userDTO.toString());
+            outgoingUsers.add(userDTO);
         }
 
         //return the dtos

@@ -1,12 +1,28 @@
 import Button from 'react-bootstrap/Button';
+import {useEffect, useState} from "react";
+import {User} from "../interfaces/User.ts";
+import axios from "axios";
 
 export const AdminViewUserTable:React.FC = () => {
 
-    const users = [
-        { id: 1, firstName: "Mark", lastName: "Otto", username: "@mdo", role: "Admin" },
-        { id: 2, firstName: "Jacob", lastName: "Thornton", username: "@fat", role: "User" },
-        { id: 3, firstName: "Larry", lastName: "Bird", username: "@twitter", role: "User" },
-    ];
+
+    const [userData, setUserData] = useState<User[]>([]);
+
+    useEffect(() => {
+        //Call API to get all users on component load
+        getAllUsers();
+    }, []);
+
+
+    const getAllUsers = async () => {
+        try{
+            const response = await axios.get("http://localhost:8080/admin/users", {withCredentials: true});
+            setUserData(response.data);
+        } catch {
+            alert("Failed to get users");
+        }
+    }
+
 
 
 
@@ -26,10 +42,10 @@ export const AdminViewUserTable:React.FC = () => {
             </tr>
             </thead>
             <tbody>
-            {users.map((user) => (
-                <tr key={user.id}>
+            {userData.map((user) => (
+                <tr key={user.userId}>
 
-                    <th scope="row">{user.id}</th>
+                    <th scope="row">{user.userId}</th>
                     <td>{user.firstName}</td>
                     <td>{user.lastName}</td>
                     <td>{user.username}</td>
