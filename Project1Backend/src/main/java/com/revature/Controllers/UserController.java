@@ -22,7 +22,6 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/user")
 public class UserController {
 
     private final User user;
@@ -38,10 +37,10 @@ public class UserController {
 
     //function for getting user reimbursements
     @GetMapping("/reimbursements")
-    public ResponseEntity<List<Reimbursement>> getUserReimbursements(HttpSession session) {
+    public ResponseEntity<List<Reimbursement>> getUserReimbursements(HttpSession session, @RequestParam int userId) {
         //one liner for populating user reimbursements
-        List<Reimbursement> userReimbList = reimbursementService.findByUserId(
-                (Integer) session.getAttribute("userId")).orElse(Collections.emptyList());
+        //repurposed to take a param so we can use this for filter
+        List<Reimbursement> userReimbList = reimbursementService.findByUserId(userId).orElse(Collections.emptyList());
 
         //return the responseentity
         return ResponseEntity.ok(userReimbList);

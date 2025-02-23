@@ -1,12 +1,30 @@
+import {useEffect, useState} from "react";
+import {Reimbursement} from "../interfaces/Reimbursement.ts";
+import axios from "axios";
+import {UserReimbTableProps} from "../interfaces/UserReimbTableProps.ts";
 
 
-export const UserReimbTable: React.FC = () => {
+export const UserReimbTable: React.FC<UserReimbTableProps> = ({userId}) => {
 
-    const reimbursements = [
-        { id: 1, description: "Test Description", amount: 10000.35, pending: true, approved: false, user_id: 1 },
-        { id: 2, description: "Test Description", amount: 100, pending: false, approved: false, user_id: 2 },
-        { id: 3, description: "Test Description", amount: 100, pending: true, approved: true, user_id: 1 },
-    ];
+    //TODO: REMEMBER TO PASS PROPS!!!!
+    const [reimbursements, setReimbursements] = useState<Reimbursement[]>([]);
+
+    useEffect(() => {
+        getUserReimbursements(userId)
+    }, []);
+
+
+    const getUserReimbursements = async (userId: number) => {
+        try{
+            const response = await axios.get(`http://localhost:8080/reimbursements/}`, {withCredentials: true,
+                params: userId});
+            setReimbursements(response.data);
+        } catch {
+            alert("Failed to get reimbursements");
+        }
+    }
+
+
 
     return (
         <div className={"container-fluid vh-100 vw-95 mx-auto align-items-center justify-content-center"}>

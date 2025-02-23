@@ -42,11 +42,12 @@ public class Reimbursement {
     public Reimbursement() {
     }
 
-    public Reimbursement(int reimbursementId, String description, double amount, boolean pending, User user) {
+    public Reimbursement(int reimbursementId, String description, double amount, boolean pending, boolean approved, User user) {
         this.reimbursementId = reimbursementId;
         this.description = description;
         this.amount = amount;
         this.pending = pending;
+        this.approved = approved;
         this.user = user;
     }
 
@@ -91,6 +92,14 @@ public class Reimbursement {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public void setApproved(boolean approved) {
+        this.approved = approved;
     }
 
     //toString

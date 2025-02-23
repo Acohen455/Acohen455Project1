@@ -100,8 +100,8 @@ public class AdminController {
     @PutMapping("/updatereimbursement/{reimbursementId}")
     @AdminOnly
     public ResponseEntity updateReimbursement(@PathVariable int reimbursementId,
-                                              @RequestParam boolean pendingStatus,
-                                              @RequestParam boolean approved){
+                                              @RequestParam Boolean pendingStatus,
+                                              @RequestParam Boolean approved){
 
         if (reimbursementService.findByReimbursementId(reimbursementId).isEmpty()) {
             throw new IllegalArgumentException("Reimbursement not found");
