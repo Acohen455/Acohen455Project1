@@ -34,10 +34,10 @@ export const Login:React.FC = () => {
             store.loggedInUser = response.data;
 
 
-            if (store.getLoggedInUser() == "ADMIN") {
+            if (store.getLoggedInUserRole() == "ADMIN") {
                 navigate("/admin/users");
             } else {
-                navigate("/user/reimbursements");
+                navigate("/reimbursements", { state: { userId: store.loggedInUser.userId } });
             }
 
 

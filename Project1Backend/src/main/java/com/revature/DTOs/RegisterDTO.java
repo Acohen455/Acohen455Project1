@@ -4,6 +4,8 @@ public class RegisterDTO {
     public String username;
     public String password;
     public String role;
+    public String firstName;
+    public String lastName;
 
 
     //constructors
@@ -22,7 +24,13 @@ public class RegisterDTO {
         this.role = role;
     }
 
-
+    public RegisterDTO(String username, String password, String role, String firstName, String lastName) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
     //setters & getters
     public String getUsername() {
@@ -47,6 +55,22 @@ public class RegisterDTO {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     //toString

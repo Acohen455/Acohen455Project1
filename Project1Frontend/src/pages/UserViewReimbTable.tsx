@@ -1,23 +1,34 @@
 import {useEffect, useState} from "react";
 import {Reimbursement} from "../interfaces/Reimbursement.ts";
 import axios from "axios";
-import {UserReimbTableProps} from "../interfaces/UserReimbTableProps.ts";
+import {useLocation} from "react-router-dom";
 
 
-export const UserReimbTable: React.FC<UserReimbTableProps> = ({userId}) => {
+export const UserReimbTable: React.FC = () => {
+
+
+    const location = useLocation();
+    const userId = location.state?.userId
+
 
     //TODO: REMEMBER TO PASS PROPS!!!!
     const [reimbursements, setReimbursements] = useState<Reimbursement[]>([]);
 
     useEffect(() => {
-        getUserReimbursements(userId)
-    }, []);
+            if (userId) {
+                console.log("Fetching reimbursements for userId:", userId);
+                getUserReimbursements(userId);
+            } else {
+                console.error("No userId found in location state");
+            }
+    }, [userId]);
 
 
     const getUserReimbursements = async (userId: number) => {
         try{
-            const response = await axios.get(`http://localhost:8080/reimbursements/}`, {withCredentials: true,
-                params: userId});
+            console.log(userId);
+            const response = await axios.get(`http://localhost:8080/reimbursements`, {withCredentials: true,
+                params: {userId}});
             setReimbursements(response.data);
         } catch {
             alert("Failed to get reimbursements");

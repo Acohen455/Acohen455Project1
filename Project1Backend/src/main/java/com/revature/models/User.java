@@ -63,10 +63,18 @@ public class User{
         this.role = role;
     }
 
+    public User(String firstName, String lastName, String username, String password, String role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
+
 
     //overloaded constructor
 
-    public User(int userId, String firstName, String lastName, String username, String password, String role) {
+    public User(int userId, String username, String password, String role, String firstName, String lastName) {
         this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;

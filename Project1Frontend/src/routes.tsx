@@ -22,7 +22,7 @@ export const router = createBrowserRouter([
             {path: "/admin/users", element: <AdminViewUserTable />},
             {path: "/admin/reimbursements", element: <AdminViewReimbTable />},
             {path: "/reimbcreate", element: <ReimbCreate />},
-            {path: "/user/reimbursements", element: <UserReimbTable />},
+            {path: "/reimbursements", element: <UserReimbTable />},
         ]
     }
 

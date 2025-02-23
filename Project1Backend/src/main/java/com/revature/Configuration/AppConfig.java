@@ -20,7 +20,7 @@ public class AppConfig {
                 registry.addMapping("/**")
                         .allowedOrigins("http://localhost:5173")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                        .allowedHeaders("*")
+                        .allowedHeaders("Authorization", "*")
                         .allowCredentials(true)
                         .maxAge(3600);
             }

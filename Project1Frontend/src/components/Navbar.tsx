@@ -21,12 +21,18 @@ export const Navbar:React.FC = () => {
                     </ul>
                 </div>
 
-                {store.getLoggedInUser() == "ADMIN" ? (
+                {store.getLoggedInUserRole() == "ADMIN" ? (
                     <div>
                         <Button className={"me-2"} variant="primary" onClick={()=>navigate("/admin/users")}>Users</Button>
                         <Button variant={"primary"} onClick={()=>navigate("/admin/reimbursements")}>Reimbursements</Button>
                     </div>
                 ) : null}
+
+                {store.getLoggedInUserRole() !== "" ? (
+                    <div className="ms-2">
+                        <Button className={"me-2"} variant = "primary" onClick={() => {store.resetStore(); navigate("/")}}>Logout</Button>
+                    </div>) : null
+                }
 
             </div>
         </nav>

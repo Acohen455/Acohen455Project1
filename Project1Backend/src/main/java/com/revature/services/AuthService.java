@@ -37,6 +37,8 @@ public class AuthService {
         InputChecker newInpChecker = new InputChecker();
 
 
+        System.out.println(newUser.toString());
+
 
         //do some input validation
         //same validation as for login
@@ -62,8 +64,17 @@ public class AuthService {
         }
 
 
+        User userToSave = new User(
+                newUser.getUsername(),
+                newUser.getPassword(),
+                newUser.getRole(),
+                newUser.getFirstName(),
+                newUser.getLastName()
+        );
+
         //save the user -- pops back the saved object
-        User returnedUser = userDAO.save(user);
+        User returnedUser = userDAO.save(userToSave);
+
 
 
         //turn this into outgoing DTO to get rid of password

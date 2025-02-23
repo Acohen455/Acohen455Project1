@@ -30,13 +30,21 @@ public class AuthController {
 
     //function for registering the user
     //make sure we map this to a post request
+    //changing the parameters to params instead of a requestbody
     @PostMapping("/register")
     public ResponseEntity<UserDTO> registerUser(@RequestBody User user) {
+
+        if (user.getRole() == null) {
+            user.setRole("USER");
+        }
+
         //turn the user into a DTO
         RegisterDTO newUser = new RegisterDTO(
                 user.getUsername(),
                 user.getPassword(),
-                user.getRole()
+                user.getRole(),
+                user.getFirstName(),
+                user.getLastName()
         );
 
 

@@ -53,10 +53,8 @@ export const AdminViewUserTable:React.FC = () => {
                     <td>{user.lastName}</td>
                     <td>{user.username}</td>
                     <td>{user.role}</td>
-                    <td><Button variant="primary" size={"sm"} onClick={() => {
-                        console.log("Navigating to /reimbursements with userId:", user.userId);
-                        navigate('/reimbursements', { state: { userId: user.userId } });
-                    }}>
+                    <td><Button variant="primary" size={"sm"} onClick={
+                        () => navigate('/reimbursements', {state: {userId: user.userId}})}>
                         Reimbursements</Button></td>
                     <td><Button variant="danger" size={"sm"}>Fire</Button></td>
                 </tr>
