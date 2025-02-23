@@ -3,6 +3,8 @@ import {useState} from "react";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import axios from 'axios';
+import {store} from "../GlobalData/store.ts";
 
 
 export const Login:React.FC = () => {
@@ -14,6 +16,36 @@ export const Login:React.FC = () => {
         password: ""
     })
 
+    //store user inputs
+    const storeValues = (event:React.ChangeEvent<HTMLInputElement>) => {
+        //store the name of the box and the value of the inputs
+        const name = event.target.name;
+        const value = event.target.value;
+
+        //set login credentials
+        setLoginCreds((loginCreds) => ({...loginCreds, [name]:value}));
+    }
+
+    const login = async () => {
+        //use try catch blocks for !!!SAFETY!!!
+        try {
+            const response = await axios.post("http://localhost:8080/auth/login", loginCreds, {withCredentials: true});
+
+            store.loggedInUser = response.data;
+
+
+            if (store.getLoggedInUser() == "ADMIN") {
+                navigate("/admin/users");
+            } else {
+                navigate("/user/reimbursements");
+            }
+
+
+        } catch {
+            alert("Login Failed");
+        }
+    }
+
 
     return (
         <form>
@@ -23,33 +55,29 @@ export const Login:React.FC = () => {
                 <div className="form-floating mb-1 pb-2">
                 {/* styling for bootstrap goes in the classnames */}
                 {/* here we're indicating a border of thickness 1 and color grey */}
-                <input type="email" id="emailInput" className="form-control border border-1 border-grey" style={{fontSize:".95rem"}}/>
+                <input type="text" id="usernameInput" className="form-control border border-1 border-grey" style={{fontSize:".95rem"}}
+                       onChange={storeValues}/>
                 {/* TODO: get label to float to the right spot */}
-                <label className="form-label form-control-sm" htmlFor="emailInput" style={{}} >Email address</label>
+                <label className="form-label form-control-sm" htmlFor="usernameInput" style={{}} >Username</label>
             </div>
 
             {/*<!-- Password input -->*/}
             <div className="form-floating mb-1">
-                <input type="password" id="passwordInput" className="form-control border border-1 border-grey" style={{fontSize:".95rem"}}/>
+                <input type="password" id="passwordInput" className="form-control border border-1 border-grey" style={{fontSize:".95rem"}}
+                       onChange={storeValues}/>
                 <label className="form-label form-control-sm" htmlFor="passwordInput">Password</label>
             </div>
 
-            {/*<!-- 2 column grid layout for inline styling -->*/}
-            <div className="row mb-4">
-                <div className="col">
-                    {/*<!-- Simple link -->*/}
-                    <a href="#!">Forgot password?</a>
-                </div>
-            </div>
+            {/*<!-- Forgot password WOULD go here, but it's not in the mockup -->*/}
 
             {/*}<!-- Submit button -->*/}
             <button type="button" data-mdb-button-init data-mdb-ripple-init
-                    className="btn btn-primary btn-block mb-4">Sign in
+                    className="btn btn-primary btn-block mb-4" onClick={login}>Sign in
             </button>
 
             {/* Register buttons */}
             <div className="text-center">
-                <p>Not a user? <a href="#!">Register</a></p>
+                <p>Not a user? <a href="#!" onClick={()=>navigate("/register")}>Register</a></p>
 
             </div>
             </div>

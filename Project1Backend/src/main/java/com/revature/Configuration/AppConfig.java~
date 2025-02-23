@@ -18,7 +18,7 @@ public class AppConfig {
                 //this tells CORS that we want to allow requests from anywhere
                 //we are allowing the specified methods, and max request age
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:5173")
+                        .allowedOrigins("http://localhost:8080")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true)
