@@ -38,6 +38,11 @@ export const ReimbCreate:React.FC = () => {
 
     const submitReimbursement = async () => {
         try {
+            if (reimbursement.amount <= 0){
+                alert("Amount must be greater than 0");
+                return
+            }
+
             if (store.getLoggedInUserRole() !== "ADMIN" || (store.getLoggedInUserRole() == "ADMIN" && !reimbursement.userId)) {
                 await axios.post("http://localhost:8080/createreimbursement", reimbursement, {withCredentials: true,
                     params: {userId: store.loggedInUser.userId}});

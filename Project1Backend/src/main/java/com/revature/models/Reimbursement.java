@@ -28,7 +28,7 @@ public class Reimbursement {
     private String status;
 
     //cascade is already defined in the user entity
-    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.REMOVE)
     @JoinColumn(name = "userId", referencedColumnName = "userId", nullable = false)
     private User user;
 

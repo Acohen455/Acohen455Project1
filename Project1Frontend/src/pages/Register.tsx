@@ -131,10 +131,13 @@ export const Register:React.FC = () => {
                 </button>
 
                 {/* Register buttons */}
-                <div className="text-center">
-                    <p>Already a user? <a href="#!">Sign In</a></p>
+                {store.getLoggedInUserRole()  === ""  ? (
+                    <div className="text-center">
+                        <span>Already a user?</span> <a href="#!" onClick={()=>navigate("/login")}>Login</a>
 
-                </div>
+                    </div>
+                    ) : null }
+
             </div>
         </form>
     )
