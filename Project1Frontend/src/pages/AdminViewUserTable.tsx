@@ -20,7 +20,7 @@ export const AdminViewUserTable:React.FC = () => {
     const getAllUsers = async () => {
         try{
             const response = await axios.get("http://localhost:8080/admin/users", {withCredentials: true});
-            setUserData(response.data);
+            setUserData(response.data.sort((a: User, b: User) => a.userId - b.userId));
         } catch {
             alert("Failed to get users");
         }

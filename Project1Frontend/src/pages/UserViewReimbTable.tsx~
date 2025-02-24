@@ -45,7 +45,6 @@ export const UserReimbTable: React.FC = () => {
         try{
             await axios.put(`http://localhost:8080/admin/updatereimbursement/${reimbursementId}`, null, {withCredentials: true,
                 params: {reimbursementId: reimbursementId, status: statusString}});
-            getUserReimbursements(userId);
             //getAllReimbursements();
         } catch {
             alert("Failed to approve reimbursement");
